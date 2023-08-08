@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { TooltipContainer } from "../TooltipContainer";
 
 type NavbarProps = {};
 
@@ -18,10 +19,15 @@ const Navbar: React.FC<NavbarProps> = () => {
         </div>
         <div className="flex gap-10 items-center">
           <div>
-            <Link className="flex hover:underline items-center gap-1" href="https://github.com/OgaDavid/Scribble">
-              <span className="font-medium text-sm">GitHub</span>
-              <ArrowUpRight className="w-4 h-4"/>
-            </Link>
+            <TooltipContainer text="View this page on GitHub.">
+              <Link
+                className="flex hover:underline items-center gap-1"
+                href="https://github.com/OgaDavid/Scribble"
+              >
+                <span className="font-medium text-sm">GitHub</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </TooltipContainer>
           </div>
           <div className="flex items-center gap-7">
             <Link className="font-medium text-sm" href="/onboard">
