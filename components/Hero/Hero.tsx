@@ -3,10 +3,12 @@ import Banner from "./Banner";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import Gradient from "./Gradient";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col bg-lines items-center justify-center pt-10">
+    <div className="flex flex-col bg-lines items-center justify-center pt-20">
+      <Gradient />
       <Banner />
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-6xl text-center max-w-[800px] pt-5 leading-[62px] font-extrabold">

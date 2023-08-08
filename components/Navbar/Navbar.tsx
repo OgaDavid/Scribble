@@ -48,7 +48,6 @@ const Navbar: React.FC<NavbarProps> = () => {
           </div>
         </header>
       </Container>
-      <div className="h-[1px] bg-brand-subtle-gray w-full" />
     </>
   );
 };
