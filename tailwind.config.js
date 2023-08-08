@@ -28,7 +28,8 @@ module.exports = {
         },
         brand: {
           purple: "#7937BE",
-          gray: "#52525B"
+          gray: "#52525B",
+          "subtle-gray": "#E5E5E5"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
