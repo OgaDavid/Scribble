@@ -3,7 +3,7 @@ import { MenuItems } from "@/components/Navbar/MenuItems";
 import Container from "@/components/Container";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { buttonVariants } from "../ui/button";
+import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 type NavbarProps = {};
