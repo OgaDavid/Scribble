@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "Community",
   ],
   description:
-    "Scribble is your go-to community space for where developers can share and learn from high-quality tech and programming articles or even start their own blog.",
+    "Scribble is your go-to community space where developers can share and learn from high-quality tech and programming articles or even start their own blog.",
   applicationName: "Scribble",
   authors: [{ name: "Scribble" }],
   openGraph: {
