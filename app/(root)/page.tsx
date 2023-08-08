@@ -1,21 +1,11 @@
 import Container from "@/components/Container";
-import { ChevronRight } from "lucide-react";
+import Hero from "@/components/Hero/Hero";
 
 export default function Home() {
   return (
     <main className="">
       <Container>
-        <div className="flex justify-center pt-10">
-          <div className="border inline-block py-1 px-3 border-brand-purple rounded-[30px] mx-auto">
-            <span className="text-xs flex items-center font-medium">
-              🎉 Scribble now supports login and sign up with oAuth. {"  "}
-              <span className="flex hover:underline cursor-pointer text-brand-purple items-center">
-                {" "}
-                Read More <ChevronRight className="h-4 w-4" />
-              </span>
-            </span>
-          </div>
-        </div>
+        <Hero />
       </Container>
     </main>
   );

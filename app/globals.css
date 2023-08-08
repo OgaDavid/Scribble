@@ -82,3 +82,9 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+.bg-lines {
+  background-image: url("../public/assets/images/bg-lines.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
