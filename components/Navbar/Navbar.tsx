@@ -1,11 +1,12 @@
-import React from 'react';
+import Logo from "@/components/Logo";
 
-type NavbarProps = {
-    
+type NavbarProps = {};
+
+const Navbar: React.FC<NavbarProps> = () => {
+  return (
+    <nav>
+      <Logo />
+    </nav>
+  );
 };
-
-const Navbar:React.FC<NavbarProps> = () => {
-    
-    return <div>Navbar</div>
-}
 export default Navbar;
