@@ -39,11 +39,6 @@ export const metadata: Metadata = {
     description: "Scribble - Free Blogging Community for Developers",
     url: "https://tryscribble.vercel.app",
     siteName: "Scribble",
-    images: [
-      {
-        url: "https://drive.google.com/file/d/1w9sA4jgIilNnoKOAF7WCbgXr7zcR2nYE/view?usp=sharing",
-      },
-    ],
     locale: "en-US",
     type: "website",
   },
@@ -52,7 +47,6 @@ export const metadata: Metadata = {
     title: "Scribble",
     description: "Scribble - Free Blogging Community for Developers",
     creator: "@scribble",
-    images: ["https://drive.google.com/file/d/1w9sA4jgIilNnoKOAF7WCbgXr7zcR2nYE/view?usp=sharing"],
   },
   category: "Community",
 };
