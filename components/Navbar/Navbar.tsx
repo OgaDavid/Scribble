@@ -8,7 +8,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { TooltipContainer } from "../TooltipContainer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Hamburger from "./Hamburger";
 import { MobileMenuItems } from "./MobileMenuItems";
 
@@ -18,15 +18,23 @@ const Navbar: React.FC<NavbarProps> = () => {
   // state and function for fixed navbar on scroll
   const [isFixed, setIsFixed] = useState<boolean>(false);
 
-  function setNavbarToFixed() {
-    if (window.scrollY >= 75) {
-      setIsFixed(true);
-    } else {
-      setIsFixed(false);
-    }
-  }
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      if (scrollY >= 70) {
+        setIsFixed(true);
+      } else {
+        setIsFixed(false);
+      }
+    };
 
-  window.addEventListener("scroll", setNavbarToFixed);
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   function openNavigation() {
@@ -36,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = () => {
     <>
       <header
         className={cn(
-          "fixed w-full transition-all duration-200",
+          "fixed w-full transition-all duration-150",
           isFixed ? "bg-white shadow-md" : ""
         )}
       >

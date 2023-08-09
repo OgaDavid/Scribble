@@ -1,14 +1,9 @@
 // import Skeleton from "@/components/Navbar/Skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
-import Skeleton from  'react-loading-skeleton'
 import "./globals.css";
-const DynamicHeader = dynamic(() => import("@/components/Navbar/Navbar"), {
-  ssr: false,
-  loading: () => <Skeleton height={56} borderRadius={0} baseColor='#ffff' />,
-});
+import Navbar from '@/components/Navbar/Navbar';
 
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Plus_Jakarta_Sans } from "next/font/google";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
@@ -59,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={plusJakartaSans.className}>
-        <DynamicHeader />
+        <Navbar />
         {children}
       </body>
     </html>
