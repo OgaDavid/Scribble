@@ -37,7 +37,7 @@ const Navbar: React.FC<NavbarProps> = () => {
       >
         <Container>
           <div className="flex items-end py-2 justify-between">
-            <div className="flex items-center gap-10">
+            <div className="flex items-center gap-5 md:gap-10">
               <Logo />
               <MenuItems />
             </div>
