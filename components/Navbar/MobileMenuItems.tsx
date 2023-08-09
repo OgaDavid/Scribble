@@ -68,7 +68,7 @@ export function MobileMenuItems() {
                   >
                     <Logo />
                     <div className="mb-2 mt-4 text-lg font-medium">
-                      scribble
+                      Scribble
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
                     Here, developers can share and learn from high-quality tech and programming articles or even start their own blog.
