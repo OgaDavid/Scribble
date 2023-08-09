@@ -1,7 +1,10 @@
-import Navbar from "@/components/Navbar/Navbar";
 import "./globals.css";
+const DynamicHeader = dynamic(() => import("@/components/Navbar/Navbar"), {
+  ssr: false,
+});
 
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Plus_Jakarta_Sans } from "next/font/google";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
@@ -58,7 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={plusJakartaSans.className}>
-        <Navbar />
+        <DynamicHeader />
         {children}
       </body>
     </html>
