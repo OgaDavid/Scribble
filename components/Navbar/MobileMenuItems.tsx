@@ -86,7 +86,7 @@ export function MobileMenuItems() {
                 worthwhile.
               </ListItem>
               <ListItem title="Get Started">
-                We can't wait to have you on Scribble. Join us Today!
+                We can&apos;t wait to have you on Scribble. Join us Today!
               </ListItem>
             </ul>
           </NavigationMenuContent>
