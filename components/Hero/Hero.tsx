@@ -7,7 +7,7 @@ import Gradient from "./Gradient";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col bg-lines items-center justify-center pt-20">
+    <div className="flex flex-col bg-lines items-center justify-center pt-32">
       <Gradient />
       <Banner />
       <div className="flex flex-col items-center justify-center">
