@@ -1,6 +1,10 @@
+// import Skeleton from "@/components/Navbar/Skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from  'react-loading-skeleton'
 import "./globals.css";
 const DynamicHeader = dynamic(() => import("@/components/Navbar/Navbar"), {
   ssr: false,
+  loading: () => <Skeleton height={56} borderRadius={0} baseColor='#ffff' />,
 });
 
 import type { Metadata } from "next";

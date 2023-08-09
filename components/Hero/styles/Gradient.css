@@ -1,0 +1,84 @@
+/* background gradient */
+._absolute {
+  position: absolute;
+  top: 50px !important;
+  justify-content: center;
+  inset: 0;
+  display: inline-flex;
+  z-index: -1;
+  flex-direction: row;
+}
+
+._shape-one {
+  width: 400px;
+  height: 400px;
+  border-radius: 9999px;
+  position: relative;
+  animation: one 20s ease-in-out infinite;
+}
+
+._shape-two {
+  width: 300px;
+  height: 300px;
+  border-radius: 9999px;
+  position: relative;
+  animation: two 20s ease-in-out infinite;
+}
+
+@keyframes one {
+  0% {
+    left: -250px;
+    top: 100px;
+  }
+  25% {
+    left: -100px;
+    top: 200px;
+  }
+  50% {
+    left: -300px;
+    top: 250px;
+  }
+  75% {
+    left: -50px;
+    top: 100px;
+  }
+  100% {
+    left: -100px;
+    top: -200px;
+  }
+}
+
+@keyframes two {
+  0% {
+    right: -250px;
+    bottom: 100px;
+  }
+  25% {
+    right: -100px;
+    bottom: 200px;
+  }
+  50% {
+    right: -300px;
+    bottom: 250px;
+  }
+  75% {
+    right: -50px;
+    bottom: 100px;
+  }
+  100% {
+    right: -100px;
+    bottom: -200px;
+  }
+}
+
+._bg-blur {
+  filter: blur(90px);
+}
+
+@media (max-width: 768px) {
+  ._shape-one,
+  ._shape-two {
+    animation: none;
+    width: 100px;
+  }
+}

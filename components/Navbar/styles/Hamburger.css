@@ -1,0 +1,71 @@
+:root {
+  --button-width: 20px;
+  --button-height: calc(var(--button-width) * .8);
+  --rectangle-height: calc(var(--button-width) * .1);
+  --rectangle-radius: calc(var(--button-width) * .04);
+  --translate: calc(var(--button-width) * .17);
+  --transition: 0.3s;
+}
+
+.fancy-burger {
+  position: relative;
+  width: var(--button-width);
+  height: var(--button-height);
+  border: 0;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
+.rectangle {
+  position: absolute;
+  height: var(--rectangle-height);
+  background: #7937BE;
+  border-radius: var(--rectangle-radius);
+  transition: transform var(--transition);
+}
+.rectangle--small {
+  width: calc(var(--button-width) / 2);
+}
+.rectangle--top {
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+}
+.rectangle--top.open {
+  transform: translateX(var(--translate)) rotate(45deg);
+}
+.rectangle--middle {
+  top: 50%;
+  left: 0;
+  width: var(--button-width);
+  transform: translatey(-50%);
+}
+.rectangle--middle.open {
+  transform: translatey(-50%) rotate(-45deg);
+}
+.rectangle--bottom {
+  bottom: 0;
+  right: 0;
+  transform-origin: bottom right;
+}
+.rectangle--bottom.open {
+  transform: translateX(calc(-1 * var(--translate))) rotate(45deg);
+}
+.box {
+  position: absolute;
+  top: 34px;
+  left: 0px;
+  width: 400px;
+  height: 280px;
+  border-radius: 33px;
+  background: #5672fc;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: top left;
+  transition-property: opacity, transform;
+  transition-duration: .3s;
+}
+.box.open {
+  opacity: 1;
+  transform: scale(1);
+}

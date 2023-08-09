@@ -9,6 +9,8 @@ import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { TooltipContainer } from "../TooltipContainer";
 import { useState } from "react";
+import Hamburger from "./Hamburger";
+import { MobileMenuItems } from "./MobileMenuItems";
 
 type NavbarProps = {};
 
@@ -25,23 +27,26 @@ const Navbar: React.FC<NavbarProps> = () => {
   }
 
   window.addEventListener("scroll", setNavbarToFixed);
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  function openNavigation() {
+    setIsOpen(!isOpen);
+  }
   return (
     <>
       <header
         className={cn(
           "fixed w-full transition-all duration-200",
-          isFixed
-            ? "bg-white shadow-md"
-            : ""
+          isFixed ? "bg-white shadow-md" : ""
         )}
       >
         <Container>
-          <div className="flex items-end py-2 justify-between">
+          <div className="flex py-2 justify-between">
             <div className="flex items-center gap-5 md:gap-10">
               <Logo />
               <MenuItems />
             </div>
-            <div className="flex gap-10 items-center">
+            <div className="hidden md:flex gap-10 items-center">
               <div>
                 <TooltipContainer text="View this page on GitHub.">
                   <Link
@@ -54,7 +59,10 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </TooltipContainer>
               </div>
               <div className="flex items-center gap-7">
-                <Link className="font-medium hover:underline text-sm" href="/onboard">
+                <Link
+                  className="font-medium hover:underline text-sm"
+                  href="/onboard"
+                >
                   Login
                 </Link>
                 <Link
@@ -69,8 +77,58 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </Link>
               </div>
             </div>
+            <div className="md:hidden" onClick={openNavigation}>
+              <Hamburger open={isOpen} />
+            </div>
           </div>
         </Container>
+
+        {/* Mobile Navigation */}
+        <div className={`bg-white`}>
+          <Container>
+            <div className={cn(isOpen ? "block" : "hidden", "pt-4")}>
+              <MobileMenuItems />
+              <div className="mt-12">
+                <TooltipContainer text="View this page on GitHub.">
+                  <Link
+                    className="flex hover:underline items-center gap-1"
+                    href="https://github.com/OgaDavid/Scribble"
+                  >
+                    <span className="font-medium text-sm">GitHub</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
+                </TooltipContainer>
+              </div>
+              <nav>
+                <ul>
+                  <li className="py-3">
+                    <Link
+                      className="font-medium hover:underline text-sm"
+                      href="/onboard"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                  <li className="py-2">
+                    <Link
+                      className={cn(
+                        buttonVariants(),
+                        "inline-flex text-sm px-7 justify-center gap-1"
+                      )}
+                      href="/onboard"
+                    >
+                      <span>Sign up</span>
+                      <ArrowRight className="w-4 h-4 mt-1" />
+                    </Link>
+                  </li>
+                  <li className="py-2">
+                    <Link href=""></Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </Container>
+        </div>
       </header>
     </>
   );
