@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: "Scribble",
     images: [
       {
-        url: "/assets/images/banner.png",
+        url: "../public/assets/images/banner.png",
       },
     ],
     locale: "en-US",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     title: "Scribble",
     description: "Scribble - Free Blogging Community for Developers",
     creator: "@scribble",
-    images: ["/assets/images/banner.png"],
+    images: ["../public/assets/images/banner.png"],
   },
   category: "Community",
 };
