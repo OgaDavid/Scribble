@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: "Scribble",
     images: [
       {
-        url: "https://github.com/OgaDavid/Scribble/blob/master/public/assets/images/banner.jpg",
+        url: "https://raw.githubusercontent.com/OgaDavid/Scribble/master/public/assets/images/bannner.png?token=GHSAT0AAAAAACDYPQP3QW6QIZDXTIF6F3UOZGTFGAA",
       },
     ],
     locale: "en-US",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     title: "Scribble",
     description: "Scribble - Free Blogging Community for Developers",
     creator: "@scribble",
-    images: ["https://github.com/OgaDavid/Scribble/blob/master/public/assets/images/banner.jpg"],
+    images: ["https://raw.githubusercontent.com/OgaDavid/Scribble/master/public/assets/images/bannner.png?token=GHSAT0AAAAAACDYPQP3QW6QIZDXTIF6F3UOZGTFGAA"],
   },
   category: "Community",
 };
