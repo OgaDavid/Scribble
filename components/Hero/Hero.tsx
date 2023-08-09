@@ -7,15 +7,15 @@ import Gradient from "./Gradient";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col bg-lines items-center justify-center pt-32">
+    <div className="flex flex-col bg-lines items-center justify-center pt-20 md:pt-32">
       <Gradient />
       <Banner />
       <div className="flex flex-col items-center justify-center">
-        <h1 className="text-6xl text-center max-w-[800px] pt-5 leading-[62px] font-extrabold">
+        <h1 className="text-4xl md:text-6xl max- text-center max-w-[800px] pt-5 md:leading-[62px] font-extrabold">
           Discover the power of communities with{" "}
           <span className="text-brand-purple">Scribble</span>
         </h1>
-        <p className="text-brand-gray text-lg text-center max-w-[800px] pt-3">
+        <p className="text-brand-gray text-sm md:text-lg text-center max-w-[800px] pt-3">
           Scribble is a dynamic and inclusive blogging community for developers
           and people in tech. Scribble offers a seamless platform for users to
           post and engage in a wide range of topics and articles, creating a

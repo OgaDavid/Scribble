@@ -4,7 +4,7 @@ import React from "react";
 const Banner = () => {
   return (
     <div className="border inline-block py-1 px-3 border-brand-purple rounded-[30px] mx-auto">
-      <span className="text-xs flex items-center font-medium">
+      <span className="text-[8px] md:text-xs flex items-center font-medium">
         🎉 Scribble now supports login and sign up with oAuth. {"  "}
         <span className="flex hover:underline pl-1 cursor-pointer text-brand-purple items-center">
           {" "}
