@@ -54,7 +54,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </TooltipContainer>
               </div>
               <div className="flex items-center gap-7">
-                <Link className="font-medium text-sm" href="/onboard">
+                <Link className="font-medium hover:underline text-sm" href="/onboard">
                   Login
                 </Link>
                 <Link
