@@ -37,11 +37,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Scribble",
     description: "Scribble - Free Blogging Community for Developers",
-    url: "https://tryscribble.com",
+    url: "https://tryscribble.vercel.app",
     siteName: "Scribble",
     images: [
       {
-        url: "../public/assets/images/banner.jpg",
+        url: "https://github.com/OgaDavid/Scribble/blob/master/public/assets/images/banner.jpg",
       },
     ],
     locale: "en-US",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     title: "Scribble",
     description: "Scribble - Free Blogging Community for Developers",
     creator: "@scribble",
-    images: ["../public/assets/images/banner.jpg"],
+    images: ["https://github.com/OgaDavid/Scribble/blob/master/public/assets/images/banner.jpg"],
   },
   category: "Community",
 };
