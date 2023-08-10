@@ -1,2 +1,2 @@
-![Scribble](https://github.com/OgaDavid/Scribble/blob/master/public/assets/images/bannner.png?raw=true)
+![Scribble](https://github.com/OgaDavid/Scribble/blob/master/public/assets/images/banner.png?raw=true)
 # Scribble™
