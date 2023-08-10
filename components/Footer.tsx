@@ -123,10 +123,10 @@ const Footer = () => {
         </div>
         <Separator />
         <div className="flex text-brand-gray flex-col py-6 text-center items-center justify-center">
-          <p className="text-sm font-semibold">
+          <p className="text-xs md:text-sm font-semibold">
             Copyrights &copy; 2023 Scribble. All rights Reserved.
           </p>
-          <p className="text-xs pt-1 font-semibold">
+          <p className="text-[10px] md:text-xs pt-1 font-semibold">
             Designed and Developed by{" "}
             <Link className="italic underline text-brand-purple" href="">
               OgaDavid
