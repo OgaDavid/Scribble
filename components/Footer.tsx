@@ -32,11 +32,11 @@ const Footer = () => {
                 Quick links
               </h4>
               <ul className="font-medium flex mt-4 flex-col gap-4 text-brand-gray">
-                <li>Home Page</li>
-                <li>Product</li>
-                <li>About Us</li>
-                <li>FAQ</li>
-                <li>Contact us</li>
+                <li className="cursor-pointer hover:underline">Home Page</li>
+                <li className="cursor-pointer hover:underline">Product</li>
+                <li className="cursor-pointer hover:underline">About Us</li>
+                <li className="cursor-pointer hover:underline">FAQ</li>
+                <li className="cursor-pointer hover:underline">Contact us</li>
               </ul>
             </div>
             <div>
@@ -47,7 +47,7 @@ const Footer = () => {
                 Follow us on our social media.
               </p>
               <div className="flex items-center mt-[32px] gap-3">
-                <TooltipContainer text="follow us on linkedin">
+                <TooltipContainer text="Follow us on linkedin">
                   <Image
                     className="cursor-pointer"
                     alt="linkedin"
@@ -56,7 +56,7 @@ const Footer = () => {
                     height={20}
                   />
                 </TooltipContainer>
-                <TooltipContainer text="follow us on facebook">
+                <TooltipContainer text="Follow us on facebook">
                   <Image
                     className="cursor-pointer"
                     alt="facebook"
@@ -65,7 +65,7 @@ const Footer = () => {
                     height={20}
                   />
                 </TooltipContainer>
-                <TooltipContainer text="follow us on instagram">
+                <TooltipContainer text="Follow us on instagram">
                   <Image
                     className="cursor-pointer"
                     alt="instagram"
@@ -74,7 +74,7 @@ const Footer = () => {
                     height={20}
                   />
                 </TooltipContainer>
-                <TooltipContainer text="follow us on twitter">
+                <TooltipContainer text="Follow us on twitter">
                   <Image
                     className="cursor-pointer"
                     alt="twitter"
@@ -83,7 +83,7 @@ const Footer = () => {
                     height={20}
                   />
                 </TooltipContainer>
-                <TooltipContainer text="follow us on youtube">
+                <TooltipContainer text="Follow us on youtube">
                   <Image
                     className="cursor-pointer"
                     alt="youtube"
