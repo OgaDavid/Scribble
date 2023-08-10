@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      if (scrollY >= 70) {
+      if (scrollY >= 30) {
         setIsFixed(true);
       } else {
         setIsFixed(false);
