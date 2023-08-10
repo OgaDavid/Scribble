@@ -1,5 +1,5 @@
 import React from "react";
-import AccordionComponent from "./Accordion";
+import AccordionComponent from "./AccordionComponent";
 import Container from "@/components/Container";
 
 const FAQ = () => {
