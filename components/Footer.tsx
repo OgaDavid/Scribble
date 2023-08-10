@@ -128,7 +128,7 @@ const Footer = () => {
           </p>
           <p className="text-[10px] md:text-xs pt-1 font-semibold">
             Designed and Developed by{" "}
-            <Link className="italic underline text-brand-purple" href="">
+            <Link className="italic underline text-brand-purple" href="https://github.com/OgaDavid">
               OgaDavid
             </Link>
           </p>
