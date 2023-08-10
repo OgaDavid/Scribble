@@ -92,9 +92,9 @@ const Navbar: React.FC<NavbarProps> = () => {
         </Container>
 
         {/* Mobile Navigation */}
-        <div className={`bg-white`}>
-          <Container>
-            <div className={cn(isOpen ? "block" : "hidden", "pt-4")}>
+        <Container>
+          <div className="bg-white shadow-md rounded-lg transition duration-150">
+            <div className={cn(isOpen ? "block" : "hidden", "pt-4 pl-3")}>
               <MobileMenuItems />
               <div className="mt-12">
                 <TooltipContainer text="View this page on GitHub.">
@@ -135,8 +135,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </ul>
               </nav>
             </div>
-          </Container>
-        </div>
+          </div>
+        </Container>
       </header>
     </>
   );
