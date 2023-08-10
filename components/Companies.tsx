@@ -47,15 +47,15 @@ const Companies = () => {
           <h3 className="font-semibold text-sm md:text-xl pb-10 text-center">
             The go-to platform for top developers from leading companies.
           </h3>
-          <div className="flex gap-10 items-center justify-center max-w-[700px] flex-wrap">
+          <div className="flex gap-10 items-center justify-center max-w-[800px] flex-wrap">
             {companies.map((company) => (
               <Image
-                className="w-[70px]"
+                className="max-md:w-[70px]"
                 key={company.name}
                 src={company.imageUrl}
                 alt={company.name}
-                width={100}
-                height={100}
+                width={120}
+                height={120}
               />
             ))}
           </div>
