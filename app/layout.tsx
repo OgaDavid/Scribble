@@ -1,5 +1,5 @@
 // import Skeleton from "@/components/Navbar/Skeleton";
-import 'react-loading-skeleton/dist/skeleton.css'
+import Footer from "@/components/Footer";
 import "./globals.css";
 import Navbar from '@/components/Navbar/Navbar';
 
@@ -56,6 +56,7 @@ export default function RootLayout({
       <body className={plusJakartaSans.className}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

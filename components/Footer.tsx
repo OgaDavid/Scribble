@@ -21,8 +21,8 @@ const Footer = () => {
             <div>
               <h4 className="text-lg md:text-2xl font-extrabold">Legals</h4>
               <ul className="font-medium mt-4 text-brand-gray">
-                <li>Terms & Conditions</li>
-                <li>Privacy Policy</li>
+                <li className="cursor-pointer hover:underline">Terms & Conditions</li>
+                <li className="cursor-pointer hover:underline">Privacy Policy</li>
               </ul>
             </div>
           </div>
