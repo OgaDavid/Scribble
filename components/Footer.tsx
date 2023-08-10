@@ -51,7 +51,7 @@ const Footer = () => {
                   <Image
                     className="cursor-pointer"
                     alt="linkedin"
-                    src="/assets/images/linkedin.svg"
+                    src="/assets/images/linkedin.png"
                     width={20}
                     height={20}
                   />
