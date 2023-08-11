@@ -108,7 +108,7 @@ export function MobileMenuItems() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="#faq" legacyBehavior passHref>
+          <Link href="/#faq" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               FAQ
             </NavigationMenuLink>
