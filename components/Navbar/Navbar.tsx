@@ -40,6 +40,9 @@ const Navbar: React.FC<NavbarProps> = () => {
   function openNavigation() {
     setIsOpen(!isOpen);
   }
+  function closeNavigation() {
+    setIsOpen(false);
+  }
   return (
     <>
       <header
@@ -51,7 +54,9 @@ const Navbar: React.FC<NavbarProps> = () => {
         <Container>
           <div className="flex py-2 justify-between">
             <div className="flex items-center gap-5 md:gap-10">
-              <Logo />
+              <div onClick={closeNavigation}>
+                <Logo />
+              </div>
               <MenuItems />
             </div>
             <div className="hidden md:flex gap-10 items-center">
@@ -99,6 +104,7 @@ const Navbar: React.FC<NavbarProps> = () => {
               <div className="mt-12">
                 <TooltipContainer text="View this page on GitHub.">
                   <Link
+                    onClick={closeNavigation}
                     className="flex hover:underline items-center gap-1"
                     href="https://github.com/OgaDavid/Scribble"
                   >
@@ -111,6 +117,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                 <ul>
                   <li className="py-3">
                     <Link
+                      onClick={closeNavigation}
                       className="font-medium hover:underline text-sm"
                       href="/onboard"
                     >
@@ -119,6 +126,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </li>
                   <li className="py-2">
                     <Link
+                      onClick={closeNavigation}
                       className={cn(
                         buttonVariants(),
                         "inline-flex text-sm px-7 justify-center gap-1"
