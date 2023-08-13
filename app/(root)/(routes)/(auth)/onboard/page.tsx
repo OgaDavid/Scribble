@@ -3,12 +3,18 @@
 import Container from "@/components/Container";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  useSignInWithGoogle,
+  useSignInWithGithub,
+} from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
 
 const page = () => {
   // setup google oAuth for app
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, googleUser, googleLoading, googleError] =
+    useSignInWithGoogle(auth);
+  const [SignInWithGithub, githubUser, githubLoading, githubError] =
+    useSignInWithGithub(auth);
 
   return (
     <Container>
@@ -39,7 +45,7 @@ const page = () => {
               className="flex gap-2"
               variant="outline"
               onClick={() => signInWithGoogle()}
-              disabled={loading}
+              disabled={googleLoading}
             >
               <Image
                 alt="google"
@@ -49,7 +55,11 @@ const page = () => {
               />
               Continue with Google
             </Button>
-            <Button className="flex gap-2" variant="outline">
+            <Button
+              className="flex gap-2"
+              variant="outline"
+              onClick={() => SignInWithGithub()}
+            >
               <Image
                 alt="github"
                 src="/assets/images/github.png"
