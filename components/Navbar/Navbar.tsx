@@ -11,10 +11,19 @@ import { TooltipContainer } from "../TooltipContainer";
 import { useState, useEffect } from "react";
 import Hamburger from "./Hamburger";
 import { MobileMenuItems } from "./MobileMenuItems";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/lib/firebase/firebase.config";
 
 type NavbarProps = {};
 
 const Navbar: React.FC<NavbarProps> = () => {
+  const [user, loading, error] = useAuthState(auth);
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+    }
+  }, []);
+
   // state and function for fixed navbar on scroll
   const [isFixed, setIsFixed] = useState<boolean>(false);
 
@@ -72,22 +81,37 @@ const Navbar: React.FC<NavbarProps> = () => {
                 </TooltipContainer>
               </div>
               <div className="flex items-center gap-7">
-                <Link
-                  className="font-medium hover:underline text-sm"
-                  href="/onboard"
-                >
-                  Login
-                </Link>
-                <Link
-                  className={cn(
-                    buttonVariants(),
-                    "inline-flex text-sm px-7 justify-center gap-1"
-                  )}
-                  href="/onboard"
-                >
-                  <span>Sign up</span>
-                  <ArrowRight className="w-4 h-4 mt-1" />
-                </Link>
+                {user ? (
+                  <Link
+                    className={cn(
+                      buttonVariants(),
+                      "inline-flex text-sm px-7 justify-center gap-1"
+                    )}
+                    href="/onboard"
+                  >
+                    <span>Logout</span>
+                    <ArrowRight className="w-4 h-4 mt-1" />
+                  </Link>
+                ) : (
+                  <>
+                    <Link
+                      className="font-medium hover:underline text-sm"
+                      href="/onboard"
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      className={cn(
+                        buttonVariants(),
+                        "inline-flex text-sm px-7 justify-center gap-1"
+                      )}
+                      href="/onboard"
+                    >
+                      <span>Sign up</span>
+                      <ArrowRight className="w-4 h-4 mt-1" />
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
             <div className="md:hidden" onClick={openNavigation}>
@@ -115,31 +139,48 @@ const Navbar: React.FC<NavbarProps> = () => {
               </div>
               <nav>
                 <ul>
-                  <li className="py-3">
-                    <Link
-                      onClick={closeNavigation}
-                      className="font-medium hover:underline text-sm"
-                      href="/onboard"
-                    >
-                      Login
-                    </Link>
-                  </li>
-                  <li className="py-2">
-                    <Link
-                      onClick={closeNavigation}
-                      className={cn(
-                        buttonVariants(),
-                        "inline-flex text-sm px-7 justify-center gap-1"
-                      )}
-                      href="/onboard"
-                    >
-                      <span>Sign up</span>
-                      <ArrowRight className="w-4 h-4 mt-1" />
-                    </Link>
-                  </li>
-                  <li className="py-2">
-                    <Link href=""></Link>
-                  </li>
+                  {user ? (
+                    <>
+                      <li className="py-4">
+                        <Link
+                          onClick={closeNavigation}
+                          className={cn(
+                            buttonVariants(),
+                            "inline-flex text-sm px-7 justify-center gap-1"
+                          )}
+                          href="/onboard"
+                        >
+                          <span>Logout</span>
+                          <ArrowRight className="w-4 h-4 mt-1" />
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="py-3">
+                        <Link
+                          onClick={closeNavigation}
+                          className="font-medium hover:underline text-sm"
+                          href="/onboard"
+                        >
+                          Login
+                        </Link>
+                      </li>
+                      <li className="py-2">
+                        <Link
+                          onClick={closeNavigation}
+                          className={cn(
+                            buttonVariants(),
+                            "inline-flex text-sm px-7 justify-center gap-1"
+                          )}
+                          href="/onboard"
+                        >
+                          <span>Sign up</span>
+                          <ArrowRight className="w-4 h-4 mt-1" />
+                        </Link>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </nav>
             </div>

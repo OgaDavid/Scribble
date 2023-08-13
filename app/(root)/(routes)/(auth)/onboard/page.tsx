@@ -29,6 +29,7 @@ const page = () => {
   useEffect(() => {
     if (googleUser || githubUser) {
       router.push("/");
+      console.log(googleUser || githubUser)
     }
   }, [googleUser, githubUser]);
 
