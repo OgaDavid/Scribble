@@ -1,9 +1,15 @@
+"use client";
+
 import Container from "@/components/Container";
 import { Button } from "@/components/ui/Button";
 import Image from "next/image";
-import React from "react";
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { auth } from "@/lib/firebase/firebase.config";
 
 const page = () => {
+  // setup google oAuth for app
+  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
   return (
     <Container>
       <div className="bg-lines pt-24 md:pt-16">
@@ -29,7 +35,12 @@ const page = () => {
             </span>
           </p>
           <div className="flex gap-5 flex-wrap pt-10 items-center justify-center">
-            <Button className="flex gap-2" variant="outline">
+            <Button
+              className="flex gap-2"
+              variant="outline"
+              onClick={() => signInWithGoogle()}
+              disabled={loading}
+            >
               <Image
                 alt="google"
                 src="/assets/images/google.png"
