@@ -2,19 +2,35 @@
 
 import Container from "@/components/Container";
 import { Button } from "@/components/ui/Button";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   useSignInWithGoogle,
   useSignInWithGithub,
 } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
+import { useEffect } from "react";
 
 const page = () => {
-  // setup google oAuth for app
+  const router = useRouter();
+  // setup google and github oAuth for app
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
   const [SignInWithGithub, githubUser, githubLoading, githubError] =
     useSignInWithGithub(auth);
+
+  const googleSignIn = async () => {
+    signInWithGoogle();
+  };
+  const githubSignIn = async () => {
+    SignInWithGithub();
+  };
+
+  useEffect(() => {
+    if (googleUser || githubUser) {
+      router.push("/");
+    }
+  }, [googleUser, githubUser]);
 
   return (
     <Container>
@@ -40,34 +56,43 @@ const page = () => {
               Terms & Conditions and Privacy Policy.
             </span>
           </p>
-          <div className="flex gap-5 flex-wrap pt-10 items-center justify-center">
-            <Button
-              className="flex gap-2"
-              variant="outline"
-              onClick={() => signInWithGoogle()}
-              disabled={googleLoading}
-            >
-              <Image
-                alt="google"
-                src="/assets/images/google.png"
-                width={21}
-                height={21}
-              />
-              Continue with Google
-            </Button>
-            <Button
-              className="flex gap-2"
-              variant="outline"
-              onClick={() => SignInWithGithub()}
-            >
-              <Image
-                alt="github"
-                src="/assets/images/github.png"
-                width={21}
-                height={21}
-              />
-              Continue with GitHub
-            </Button>
+          <div>
+            <div className="flex gap-5 flex-wrap pt-10 items-center justify-center">
+              <Button
+                className="flex gap-2"
+                variant="outline"
+                onClick={googleSignIn}
+                disabled={googleLoading}
+              >
+                <Image
+                  alt="google"
+                  src="/assets/images/google.png"
+                  width={21}
+                  height={21}
+                />
+                Continue with Google
+              </Button>
+              <Button
+                className="flex gap-2"
+                variant="outline"
+                onClick={githubSignIn}
+                disabled={githubLoading}
+              >
+                <Image
+                  alt="github"
+                  src="/assets/images/github.png"
+                  width={21}
+                  height={21}
+                />
+                Continue with GitHub
+              </Button>
+            </div>
+            {googleError?.message ||
+              (githubError?.message && (
+                <p className="text-center text-red-600 pt-3 text-sm">
+                  {googleError?.message || githubError?.message}
+                </p>
+              ))}
           </div>
         </div>
         <div>
