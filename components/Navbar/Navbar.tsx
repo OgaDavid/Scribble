@@ -11,7 +11,7 @@ import { TooltipContainer } from "../TooltipContainer";
 import { useState, useEffect } from "react";
 import Hamburger from "./Hamburger";
 import { MobileMenuItems } from "./MobileMenuItems";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
 
 type NavbarProps = {};
@@ -52,6 +52,14 @@ const Navbar: React.FC<NavbarProps> = () => {
   function closeNavigation() {
     setIsOpen(false);
   }
+
+  const [signOut, signOutLoading, signOutError] = useSignOut(auth);
+
+  function handleSignOut() {
+    signOut();
+    closeNavigation();
+  }
+
   return (
     <>
       <header
@@ -83,6 +91,7 @@ const Navbar: React.FC<NavbarProps> = () => {
               <div className="flex items-center gap-7">
                 {user ? (
                   <Link
+                  onClick={handleSignOut}
                     className={cn(
                       buttonVariants(),
                       "inline-flex text-sm px-7 justify-center gap-1"
@@ -143,7 +152,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                     <>
                       <li className="py-4">
                         <Link
-                          onClick={closeNavigation}
+                          onClick={handleSignOut}
                           className={cn(
                             buttonVariants(),
                             "inline-flex text-sm px-7 justify-center gap-1"
