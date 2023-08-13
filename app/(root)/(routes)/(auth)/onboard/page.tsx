@@ -11,7 +11,7 @@ import {
 import { auth } from "@/lib/firebase/firebase.config";
 import { useEffect } from "react";
 
-const page = () => {
+const OnboardPage = () => {
   const router = useRouter();
   // setup google and github oAuth for app
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
@@ -110,4 +110,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default OnboardPage;
