@@ -1,5 +1,5 @@
 import React from 'react';
-import { Command, CommandInput } from '@/components/ui/command';
+import { Command, CommandInput } from '@/components/ui/Command';
 
 type SearchBoxProps = {
     
