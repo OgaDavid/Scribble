@@ -10,6 +10,9 @@ import {
 } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
 import { useEffect } from "react";
+import { toast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/Toast";
+import { FIREBASE_ERRORS } from "@/lib/firebase/errors";
 
 const OnboardPage = () => {
   const router = useRouter();
@@ -28,10 +31,37 @@ const OnboardPage = () => {
 
   useEffect(() => {
     if (googleUser || githubUser) {
+      toast({
+        description: `You are logged in as ${
+          githubUser?.user.email || googleUser?.user.email
+        }`,
+      });
       router.push("/");
-      // console.log(googleUser || githubUser)
     }
   }, [googleUser, githubUser]);
+
+  if (githubError) {
+    toast({
+      description:
+        FIREBASE_ERRORS[githubError?.message as keyof typeof FIREBASE_ERRORS],
+      variant: "destructive",
+      action: (
+        <ToastAction altText="Try again">
+          <div
+            onClick={
+              githubError?.message
+                ? githubSignIn
+                : googleError?.message
+                ? googleSignIn
+                : undefined
+            }
+          >
+            Try again
+          </div>
+        </ToastAction>
+      ),
+    });
+  }
 
   return (
     <Container>
@@ -88,12 +118,12 @@ const OnboardPage = () => {
                 Continue with GitHub
               </Button>
             </div>
-            {googleError?.message ||
+            {/* {googleError?.message ||
               (githubError?.message && (
                 <p className="text-center text-red-600 pt-3 text-sm">
                   {googleError?.message || githubError?.message}
                 </p>
-              ))}
+              ))} */}
           </div>
         </div>
         <div>

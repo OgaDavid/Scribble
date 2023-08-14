@@ -13,6 +13,7 @@ import Hamburger from "./Hamburger";
 import { MobileMenuItems } from "./MobileMenuItems";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
+import { toast } from "../ui/use-toast";
 
 type NavbarProps = {};
 
@@ -58,6 +59,9 @@ const Navbar: React.FC<NavbarProps> = () => {
   function handleSignOut() {
     signOut();
     closeNavigation();
+    toast({
+      description: "User logged out!"
+    })
   }
 
   return (
@@ -74,24 +78,29 @@ const Navbar: React.FC<NavbarProps> = () => {
               <div onClick={closeNavigation}>
                 <Logo />
               </div>
-              <MenuItems />
+              {user && (
+                <div></div>
+              )}
+              {!user && <MenuItems />}
             </div>
             <div className="hidden md:flex gap-10 items-center">
-              <div>
-                <TooltipContainer text="View this page on GitHub.">
-                  <Link
-                    className="flex hover:underline items-center gap-1"
-                    href="https://github.com/OgaDavid/Scribble"
-                  >
-                    <span className="font-medium text-sm">GitHub</span>
-                    <ArrowUpRight className="w-4 h-4" />
-                  </Link>
-                </TooltipContainer>
-              </div>
+              {!user && (
+                <div>
+                  <TooltipContainer text="View this page on GitHub.">
+                    <Link
+                      className="flex hover:underline items-center gap-1"
+                      href="https://github.com/OgaDavid/Scribble"
+                    >
+                      <span className="font-medium text-sm">GitHub</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </Link>
+                  </TooltipContainer>
+                </div>
+              )}
               <div className="flex items-center gap-7">
                 {user ? (
                   <Link
-                  onClick={handleSignOut}
+                    onClick={handleSignOut}
                     className={cn(
                       buttonVariants(),
                       "inline-flex text-sm px-7 justify-center gap-1"
@@ -133,7 +142,7 @@ const Navbar: React.FC<NavbarProps> = () => {
         <Container>
           <div className="bg-white shadow-md rounded-lg transition duration-150">
             <div className={cn(isOpen ? "block" : "hidden", "pt-4 pl-3")}>
-              <MobileMenuItems />
+              {!user && <MobileMenuItems />}
               <div className="mt-12">
                 <TooltipContainer text="View this page on GitHub.">
                   <Link

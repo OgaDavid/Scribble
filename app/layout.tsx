@@ -2,6 +2,7 @@
 import Footer from "@/components/Footer";
 import "./globals.css";
 import Navbar from '@/components/Navbar/Navbar';
+import { Toaster } from "@/components/ui/toaster";
 
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
@@ -59,6 +60,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <ScrollToTop />
+        <Toaster />
       </body>
     </html>
   );
