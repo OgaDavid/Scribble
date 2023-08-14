@@ -9,7 +9,7 @@ const SearchBox:React.FC<SearchBoxProps> = () => {
     
     return (
     <div>
-        <Command className='bg-transparent w-[500px]'>
+        <Command className='bg-transparent border w-[500px]'>
             <CommandInput className='border-none' placeholder='Search communities'/>
         </Command>
     </div>)

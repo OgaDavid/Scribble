@@ -3,7 +3,7 @@
 import Logo from "@/components/Logo";
 import { MenuItems } from "@/components/Navbar/MenuItems";
 import Container from "@/components/Container";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgePlus, Bell, Flame } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,7 @@ import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
 import { toast } from "../ui/use-toast";
 import SearchBox from "./SearchBox";
+import { UserAvatar } from "./Avatar";
 
 type NavbarProps = {};
 
@@ -61,8 +62,8 @@ const Navbar: React.FC<NavbarProps> = () => {
     signOut();
     closeNavigation();
     toast({
-      description: "User logged out!"
-    })
+      description: "User logged out!",
+    });
   }
 
   return (
@@ -86,7 +87,12 @@ const Navbar: React.FC<NavbarProps> = () => {
               )}
               {!user && <MenuItems />}
             </div>
-            <div className="hidden md:flex gap-10 items-center">
+            <div
+              className={cn(
+                user ? "gap-3" : "gap-10",
+                "hidden md:flex items-center"
+              )}
+            >
               {!user && (
                 <div>
                   <TooltipContainer text="View this page on GitHub.">
@@ -100,19 +106,28 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </TooltipContainer>
                 </div>
               )}
+              <div className="flex items-center gap-6">
+                <div className="flex hover:bg-gray-100 cursor-pointer hover:rounded-sm transition duration-200 py-1 px-2 items-center gap-1">
+                  <Flame className="w-4 h-4" />
+                  <span className="text-sm font-medium">Popular</span>
+                </div>
+                <div className="flex items-center">
+                  <TooltipContainer text="Notifications">
+                    <div className="hover:bg-gray-100 cursor-pointer hover:rounded-sm transition duration-200 p-2">
+                      <Bell className="w-5 h-5" />
+                    </div>
+                  </TooltipContainer>
+                  <TooltipContainer text="Create a community">
+                    <div className="hover:bg-gray-100 cursor-pointer hover:rounded-sm transition duration-200 p-2">
+                      <BadgePlus className="w-5 h-5" />
+                    </div>
+                  </TooltipContainer>
+                </div>
+                <UserAvatar />
+              </div>
               <div className="flex items-center gap-7">
                 {user ? (
-                  <Link
-                    onClick={handleSignOut}
-                    className={cn(
-                      buttonVariants(),
-                      "inline-flex text-sm px-7 justify-center gap-1"
-                    )}
-                    href="/onboard"
-                  >
-                    <span>Logout</span>
-                    <ArrowRight className="w-4 h-4 mt-1" />
-                  </Link>
+                  ""
                 ) : (
                   <>
                     <Link
@@ -135,9 +150,13 @@ const Navbar: React.FC<NavbarProps> = () => {
                 )}
               </div>
             </div>
-            <div className="md:hidden" onClick={openNavigation}>
-              <Hamburger open={isOpen} />
-            </div>
+            {!user ? (
+              <div className="md:hidden" onClick={openNavigation}>
+                <Hamburger open={isOpen} />
+              </div>
+            ) : (
+              <UserAvatar />
+            )}
           </div>
         </Container>
 
