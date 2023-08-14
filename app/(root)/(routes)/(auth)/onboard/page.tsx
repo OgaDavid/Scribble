@@ -118,12 +118,6 @@ const OnboardPage = () => {
                 Continue with GitHub
               </Button>
             </div>
-            {/* {googleError?.message ||
-              (githubError?.message && (
-                <p className="text-center text-red-600 pt-3 text-sm">
-                  {googleError?.message || githubError?.message}
-                </p>
-              ))} */}
           </div>
         </div>
         <div>

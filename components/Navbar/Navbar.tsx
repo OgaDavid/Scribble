@@ -14,6 +14,7 @@ import { MobileMenuItems } from "./MobileMenuItems";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
 import { toast } from "../ui/use-toast";
+import SearchBox from "./SearchBox";
 
 type NavbarProps = {};
 
@@ -79,7 +80,9 @@ const Navbar: React.FC<NavbarProps> = () => {
                 <Logo />
               </div>
               {user && (
-                <div></div>
+                <div className="hidden md:flex">
+                  <SearchBox />
+                </div>
               )}
               {!user && <MenuItems />}
             </div>
