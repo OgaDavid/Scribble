@@ -155,7 +155,9 @@ const Navbar: React.FC<NavbarProps> = () => {
                 <Hamburger open={isOpen} />
               </div>
             ) : (
-              <UserAvatar />
+              <div className="md:hidden">
+                <UserAvatar />
+              </div>
             )}
           </div>
         </Container>
