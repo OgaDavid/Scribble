@@ -106,25 +106,27 @@ const Navbar: React.FC<NavbarProps> = () => {
                   </TooltipContainer>
                 </div>
               )}
-              <div className="flex items-center gap-6">
-                <div className="flex hover:bg-gray-100 cursor-pointer hover:rounded-sm transition duration-200 py-1 px-2 items-center gap-1">
-                  <Flame className="w-4 h-4" />
-                  <span className="text-sm font-medium">Popular</span>
+              {user && (
+                <div className="flex items-center gap-6">
+                  <div className="flex hover:bg-gray-100 cursor-pointer hover:rounded-sm transition duration-200 py-1 px-2 items-center gap-1">
+                    <Flame className="w-4 h-4" />
+                    <span className="text-sm font-medium">Popular</span>
+                  </div>
+                  <div className="flex items-center">
+                    <TooltipContainer text="Notifications">
+                      <div className="hover:bg-gray-100 cursor-pointer hover:rounded-sm transition duration-200 p-2">
+                        <Bell className="w-5 h-5" />
+                      </div>
+                    </TooltipContainer>
+                    <TooltipContainer text="Create a community">
+                      <div className="hover:bg-gray-100 cursor-pointer hover:rounded-sm transition duration-200 p-2">
+                        <BadgePlus className="w-5 h-5" />
+                      </div>
+                    </TooltipContainer>
+                  </div>
+                  <UserAvatar />
                 </div>
-                <div className="flex items-center">
-                  <TooltipContainer text="Notifications">
-                    <div className="hover:bg-gray-100 cursor-pointer hover:rounded-sm transition duration-200 p-2">
-                      <Bell className="w-5 h-5" />
-                    </div>
-                  </TooltipContainer>
-                  <TooltipContainer text="Create a community">
-                    <div className="hover:bg-gray-100 cursor-pointer hover:rounded-sm transition duration-200 p-2">
-                      <BadgePlus className="w-5 h-5" />
-                    </div>
-                  </TooltipContainer>
-                </div>
-                <UserAvatar />
-              </div>
+              )}
               <div className="flex items-center gap-7">
                 {user ? (
                   ""
