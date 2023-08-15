@@ -22,6 +22,12 @@ const OnboardPage = () => {
 
   const googleSignIn = () => {
     signInWithGoogle();
+    if (googleError) {
+      toast({
+        variant: "destructive",
+        description: `Error: ${googleError}`,
+      });
+    }
   };
 
   useEffect(() => {
