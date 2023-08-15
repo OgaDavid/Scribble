@@ -1,3 +1,5 @@
+"use client";
+
 import { Github, Home, LifeBuoy, LogOut, Plus, User } from "lucide-react";
 
 import {
@@ -12,9 +14,19 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import { useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
+import { useRouter } from "next/navigation";
+import { toast } from "../ui/use-toast";
 
 export function UserAvatar() {
   const [signOut, signOutLoading, signOutError] = useSignOut(auth);
+  const router = useRouter();
+  function handleSignOut() {
+    signOut();
+    toast({
+      description: "User logged out!",
+    });
+    router.push('/onboard')
+  }
 
   return (
     <DropdownMenu>
@@ -54,7 +66,7 @@ export function UserAvatar() {
           <span>Support</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut()}>
+        <DropdownMenuItem onClick={handleSignOut}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>
