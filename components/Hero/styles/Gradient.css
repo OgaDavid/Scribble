@@ -75,7 +75,7 @@
   filter: blur(90px);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1440px) {
   ._shape-one,
   ._shape-two {
     animation: none;

@@ -70,8 +70,8 @@ const Navbar: React.FC<NavbarProps> = () => {
     <>
       <header
         className={cn(
-          "fixed w-full z-10 transition-all duration-150",
-          isFixed ? "bg-white shadow-md" : ""
+          "fixed w-full z-10 transition duration-150",
+          isFixed ? "bg-white shadow-md" : user ? "bg-white" : ""
         )}
       >
         <Container>
