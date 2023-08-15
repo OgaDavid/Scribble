@@ -119,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                       </div>
                     </TooltipContainer>
                   </div>
-                  <UserAvatar />
+                  <UserAvatar url={user.photoURL} />
                 </div>
               )}
               <div className="flex items-center gap-7">
@@ -153,7 +153,7 @@ const Navbar: React.FC<NavbarProps> = () => {
               </div>
             ) : (
               <div className="md:hidden">
-                <UserAvatar />
+                <UserAvatar url={user.photoURL} />
               </div>
             )}
           </div>

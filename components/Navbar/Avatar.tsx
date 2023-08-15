@@ -17,7 +17,11 @@ import { auth } from "@/lib/firebase/firebase.config";
 import { useRouter } from "next/navigation";
 import { toast } from "../ui/use-toast";
 
-export function UserAvatar() {
+interface UserAvatarProps {
+  url: string | null
+}
+
+export function UserAvatar({ url }: UserAvatarProps) {
   const [signOut, signOutLoading, signOutError] = useSignOut(auth);
   const router = useRouter();
   function handleSignOut() {
@@ -32,7 +36,7 @@ export function UserAvatar() {
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer" asChild>
         <Avatar>
-          <AvatarImage src="/assets/images/black-man.jpg" />
+          <AvatarImage src={url || ""} />
           <AvatarFallback>DO</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
