@@ -21,11 +21,6 @@ type NavbarProps = {};
 
 const Navbar: React.FC<NavbarProps> = () => {
   const [user, loading, error] = useAuthState(auth);
-  useEffect(() => {
-    if (user) {
-      console.log(user);
-    }
-  }, []);
 
   // state and function for fixed navbar on scroll
   const [isFixed, setIsFixed] = useState<boolean>(false);

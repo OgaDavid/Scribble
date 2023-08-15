@@ -6,66 +6,64 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   useSignInWithGoogle,
-  useSignInWithGithub,
+  useSendSignInLinkToEmail,
 } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/Toast";
-import { FIREBASE_ERRORS } from "@/lib/firebase/errors";
+import { Input } from "@/components/ui/Input";
+import { Loader2 } from "lucide-react";
 
 const OnboardPage = () => {
   const router = useRouter();
-  // setup google and github oAuth for app
+  // setup google oAuth for app
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
-  const [SignInWithGithub, githubUser, githubLoading, githubError] =
-    useSignInWithGithub(auth);
 
-  const googleSignIn = async () => {
+  const googleSignIn = () => {
     signInWithGoogle();
-  };
-  const githubSignIn = async () => {
-    SignInWithGithub();
   };
 
   useEffect(() => {
-    if (googleUser || githubUser) {
+    if (googleUser) {
       toast({
-        description: `You are logged in as ${
-          githubUser?.user.email || googleUser?.user.email
-        }`,
+        description: `You are logged in as ${googleUser?.user.email}`,
       });
       router.push("/");
     }
-  }, [googleUser, githubUser]);
+  }, [googleUser]);
 
-  if (githubError) {
-    toast({
-      description:
-        FIREBASE_ERRORS[githubError?.message as keyof typeof FIREBASE_ERRORS],
-      variant: "destructive",
-      action: (
-        <ToastAction altText="Try again">
-          <div
-            onClick={
-              githubError?.message
-                ? githubSignIn
-                : googleError?.message
-                ? googleSignIn
-                : undefined
-            }
-          >
-            Try again
-          </div>
-        </ToastAction>
-      ),
-    });
-  }
+  // setup for sign in with email link
+  const [email, setEmail] = useState("");
+  const [sendSignInLinkToEmail, sending, error] =
+    useSendSignInLinkToEmail(auth);
+
+  const actionCodeSettings = {
+    url: "https://tryscribble.vercel.app/onboard/confirm-email",
+    handleCodeInApp: true,
+  };
+
+  const sendEmailLink = async () => {
+    const success = await sendSignInLinkToEmail(email, actionCodeSettings);
+
+    if (success) {
+      toast({
+        description: `Mail sent to ${email}, remember to check your spams folder if you can\'t find the mail.`,
+      });
+      localStorage.setItem("email", email);
+    }
+
+    if (error) {
+      toast({
+        variant: "destructive",
+        description: `Error: ${error}`,
+      });
+    }
+  };
 
   return (
     <Container>
-      <div className="bg-lines pt-24 md:pt-16">
+      <div className="bg-lines pt-16 md:pt-16">
         <div className="flex justify-end">
           <Image
             className="max-md:w-[100px]"
@@ -80,43 +78,64 @@ const OnboardPage = () => {
             Sign Up/Login
           </h1>
           <p className="text-brand-gray text-sm md:text-lg text-center max-w-[800px] pt-3">
-            By clicking “Continue with Google/GitHub” below, you acknowledge
-            that you have read and understood, and agree to Scribble&apos;s
+            By signing up with Google or email, you acknowledge that you have
+            read and understood, and agree to Scribble&apos;s
             <span className="underline italic cursor-pointer">
               {" "}
               Terms & Conditions and Privacy Policy.
             </span>
           </p>
-          <div>
-            <div className="flex gap-5 flex-wrap pt-10 items-center justify-center">
+          <div className="flex md:flex-row max-md:flex-col md:gap-10 pt-10 items-center justify-center">
+            <div>
+              <p className="text-center pb-2 text-sm text-muted-foreground">
+                Sign up/Login with Google.
+              </p>
               <Button
-                className="flex gap-2"
+                className="w-[300px]"
                 variant="outline"
                 onClick={googleSignIn}
                 disabled={googleLoading}
               >
-                <Image
-                  alt="google"
-                  src="/assets/images/google.png"
-                  width={21}
-                  height={21}
-                />
-                Continue with Google
+                {googleLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <span className="flex gap-2">
+                    <Image
+                      alt="google"
+                      src="/assets/images/google.png"
+                      width={21}
+                      height={21}
+                    />
+                    Continue with Google
+                  </span>
+                )}
               </Button>
-              <Button
-                className="flex gap-2"
-                variant="outline"
-                onClick={githubSignIn}
-                disabled={githubLoading}
-              >
-                <Image
-                  alt="github"
-                  src="/assets/images/github.png"
-                  width={21}
-                  height={21}
+            </div>
+            <span className="font-semibold text-xs py-5">OR</span>
+            <div>
+              <p className="text-center pb-2 text-sm text-muted-foreground">
+                Sign up/Login with link sent to your email.
+              </p>
+              <div className="flex max-md:flex-col items-center gap-2">
+                <Input
+                  className="w-[300px]"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
                 />
-                Continue with GitHub
-              </Button>
+                <Button
+                  onClick={sendEmailLink}
+                  className="max-md:w-full"
+                  type="submit"
+                >
+                  {sending ? (
+                    <Loader2 className="w-4 text-white h-4 animate-spin" />
+                  ) : (
+                    "Send"
+                  )}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
