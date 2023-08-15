@@ -1,7 +1,7 @@
 // import Skeleton from "@/components/Navbar/Skeleton";
 import Footer from "@/components/Footer";
 import "./globals.css";
-import Navbar from '@/components/Navbar/Navbar';
+import Navbar from "@/components/Navbar/Navbar";
 import { Toaster } from "@/components/ui/Toaster";
 
 import type { Metadata } from "next";
@@ -56,11 +56,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={plusJakartaSans.className}>
-        <Navbar />
-        {children}
-        <Footer />
-        <ScrollToTop />
-        <Toaster />
+          <Navbar />
+          {children}
+          <Footer />
+          <ScrollToTop />
+          <Toaster />
       </body>
     </html>
   );
