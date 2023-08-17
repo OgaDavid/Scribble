@@ -6,17 +6,17 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   useSignInWithGoogle,
-  useSendSignInLinkToEmail,
+  useSignInWithGithub,
 } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "@/components/ui/use-toast";
-import { Input } from "@/components/ui/Input";
 import { Loader2 } from "lucide-react";
 
 const OnboardPage = () => {
   const router = useRouter();
-  // setup google oAuth for app
+
+  // setup for google oAuth
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
 
@@ -39,30 +39,16 @@ const OnboardPage = () => {
     }
   }, [googleUser]);
 
-  // setup for sign in with email link
-  const [email, setEmail] = useState("");
-  const [sendSignInLinkToEmail, sending, error] =
-    useSendSignInLinkToEmail(auth);
+  // setup for github oAuth
+  const [signInWithGithub, githubUser, githubLoading, githubError] =
+    useSignInWithGithub(auth);
 
-  const actionCodeSettings = {
-    url: "https://tryscribble.vercel.app/onboard/confirm-email",
-    handleCodeInApp: true,
-  };
-
-  const sendEmailLink = async () => {
-    const success = await sendSignInLinkToEmail(email, actionCodeSettings);
-
-    if (success) {
-      toast({
-        description: `Mail sent to ${email}, remember to check your spams folder if you can\'t find the mail.`,
-      });
-      localStorage.setItem("email", email);
-    }
-
-    if (error) {
+  const githubSignIn = () => {
+    signInWithGithub();
+    if (githubError) {
       toast({
         variant: "destructive",
-        description: `Error: ${error}`,
+        description: `Error: ${githubError}`,
       });
     }
   };
@@ -84,8 +70,8 @@ const OnboardPage = () => {
             Sign Up/Login
           </h1>
           <p className="text-brand-gray text-sm md:text-lg text-center max-w-[800px] pt-3">
-            By signing up with Google or email, you acknowledge that you have
-            read and understood, and agree to Scribble&apos;s
+            By signing up with Google/GitHub, you acknowledge that you have read
+            and understood, and agree to Scribble&apos;s
             <span className="underline italic cursor-pointer">
               {" "}
               Terms & Conditions and Privacy Policy.
@@ -117,31 +103,30 @@ const OnboardPage = () => {
                 )}
               </Button>
             </div>
-            <span className="font-semibold text-xs py-5">OR</span>
             <div>
               <p className="text-center pb-2 text-sm text-muted-foreground">
-                Sign up/Login with link sent to your email.
+                Sign up/Login with GitHub.
               </p>
-              <div className="flex max-md:flex-col items-center gap-2">
-                <Input
-                  className="w-[300px]"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                />
-                <Button
-                  onClick={sendEmailLink}
-                  className="max-md:w-full"
-                  type="submit"
-                >
-                  {sending ? (
-                    <Loader2 className="w-4 text-white h-4 animate-spin" />
-                  ) : (
-                    "Send"
-                  )}
-                </Button>
-              </div>
+              <Button
+                className="w-[300px]"
+                variant="outline"
+                onClick={githubSignIn}
+                disabled={githubLoading}
+              >
+                {githubLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <span className="flex gap-2">
+                    <Image
+                      alt="google"
+                      src="/assets/images/github.png"
+                      width={21}
+                      height={21}
+                    />
+                    Continue with GitHub
+                  </span>
+                )}
+              </Button>
             </div>
           </div>
         </div>
