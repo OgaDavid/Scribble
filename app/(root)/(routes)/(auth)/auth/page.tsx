@@ -77,6 +77,7 @@ const OnboardPage = () => {
               Terms & Conditions and Privacy Policy.
             </span>
           </p>
+          <div>
           <div className="flex md:flex-row max-md:flex-col md:gap-10 pt-10 items-center justify-center">
             <div>
               <p className="text-center pb-2 text-sm text-muted-foreground">
@@ -128,6 +129,8 @@ const OnboardPage = () => {
                 )}
               </Button>
             </div>
+          </div>
+          <div></div>
           </div>
         </div>
         <div>

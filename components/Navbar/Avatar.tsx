@@ -29,15 +29,17 @@ export function UserAvatar({ url }: UserAvatarProps) {
     toast({
       description: "User logged out!",
     });
-    router.push('/onboard')
+    router.push('/auth/login')
   }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer" asChild>
         <Avatar>
-          <AvatarImage src={url || ""} />
-          <AvatarFallback>DO</AvatarFallback>
+          <AvatarImage src={url || "/assets/images/fallback.jpg"} />
+          <AvatarFallback>
+            #
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

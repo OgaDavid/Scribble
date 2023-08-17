@@ -24,7 +24,7 @@ const Hero = () => {
       </div>
       <div className="flex justify-center mt-10">
         <Button asChild className="bg-brand-purple flex gap-1">
-          <Link href='/onboard'>
+          <Link href='/auth/signup'>
             Get started for Free <ArrowRight className="w-4 mt-[3px] h-4" />
           </Link>
         </Button>

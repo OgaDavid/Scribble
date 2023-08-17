@@ -37,7 +37,6 @@ const Navbar: React.FC<NavbarProps> = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup the event listener when the component unmounts
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -129,7 +128,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   <>
                     <Link
                       className="font-medium hover:underline text-sm"
-                      href="/onboard"
+                      href="/auth/login"
                     >
                       Login
                     </Link>
@@ -138,7 +137,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                         buttonVariants(),
                         "inline-flex text-sm px-7 justify-center gap-1"
                       )}
-                      href="/onboard"
+                      href="/auth/signup"
                     >
                       <span>Sign up</span>
                       <ArrowRight className="w-4 h-4 mt-1" />
@@ -187,7 +186,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                             buttonVariants(),
                             "inline-flex text-sm px-7 justify-center gap-1"
                           )}
-                          href="/onboard"
+                          href="/auth/login"
                         >
                           <span>Logout</span>
                           <ArrowRight className="w-4 h-4 mt-1" />
@@ -200,7 +199,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                         <Link
                           onClick={closeNavigation}
                           className="font-medium hover:underline text-sm"
-                          href="/onboard"
+                          href="/auth/login"
                         >
                           Login
                         </Link>
@@ -212,7 +211,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                             buttonVariants(),
                             "inline-flex text-sm px-7 justify-center gap-1"
                           )}
-                          href="/onboard"
+                          href="/auth/signup"
                         >
                           <span>Sign up</span>
                           <ArrowRight className="w-4 h-4 mt-1" />

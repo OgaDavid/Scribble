@@ -33,7 +33,7 @@ const GetStarted = () => {
           </div>
           <div className="mt-7 flex items-center justify-center gap-6">
             <Button asChild className="bg-black flex gap-1">
-              <Link className="flex items-center" href="/onboard">
+              <Link className="flex items-center" href="/auth/signup">
                 <span>Try Scribble</span>{" "}
                 <ArrowRight className="w-4 mt-[1px] h-4" />
               </Link>
