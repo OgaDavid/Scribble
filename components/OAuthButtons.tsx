@@ -82,7 +82,7 @@ const OAuthButtons = () => {
           )}
         </Button>
       </div>
-      <div>
+      <div className="max-md:hidden">
         <Button
           className="w-[300px]"
           variant="outline"

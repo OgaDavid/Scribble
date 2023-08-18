@@ -204,7 +204,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                           Login
                         </Link>
                       </li>
-                      <li className="py-2">
+                      <li className="py-2 pb-4">
                         <Link
                           onClick={closeNavigation}
                           className={cn(
