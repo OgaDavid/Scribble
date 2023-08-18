@@ -5,13 +5,15 @@ import { Button } from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { auth } from "@/lib/firebase/firebase.config";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import Link from "next/link";
 import OAuthButtons from "@/components/OAuthButtons";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { FIREBASE_ERRORS } from "@/lib/firebase/errors";
 
 const OnboardPage = () => {
   const router = useRouter();
@@ -35,6 +37,43 @@ const OnboardPage = () => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  // setup for sign in with email and password
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  const signInUser = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    signInWithEmailAndPassword(logInForm.email, logInForm.password);
+
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Oops!🤒",
+        description:
+          FIREBASE_ERRORS[error.message as keyof typeof FIREBASE_ERRORS] ||
+          error.message,
+      });
+
+      setLoginForm({
+        email: "",
+        password: "",
+      });
+
+      return;
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      toast({
+        title: "Welcome back🎉",
+        description: `You are logged in as ${user.user.email}`,
+      });
+      router.push("/");
+    }
+  }, [user]);
 
   return (
     <Container>
@@ -60,7 +99,10 @@ const OnboardPage = () => {
                   OR
                 </p>
               </div>
-              <form className="flex md:flex-row max-md:flex-col gap-5 md:gap-10 items-center justify-center">
+              <form
+                onSubmit={signInUser}
+                className="flex md:flex-row max-md:flex-col gap-5 md:gap-10 items-center justify-center"
+              >
                 <div className="flex flex-col gap-1">
                   <Label
                     htmlFor="email"
@@ -105,8 +147,12 @@ const OnboardPage = () => {
                         />
                       )}
                     </div>
-                    <Button typeof="submit" className="max-md:w-full" type="submit">
-                      {showPassword ? (
+                    <Button
+                      typeof="submit"
+                      className="max-md:w-full"
+                      type="submit"
+                    >
+                      {loading ? (
                         <Loader2 className="w-4 text-white h-4 animate-spin" />
                       ) : (
                         "Login"
