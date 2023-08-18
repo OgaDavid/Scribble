@@ -1,9 +1,9 @@
 export const FIREBASE_ERRORS = {
   "Firebase: Error (auth/email-already-in-use).":
-    "A user with that email already exists",
+    "A user with that email already exists.",
 
   "Firebase: Error (auth/user-not-found).": "Invalid email or password",
   "Firebase: Error (auth/wrong-password).": "Invalid email or password",
   "Firebase: Error (auth/account-exists-with-different-credential).":
-    "The email connected to your GitHub account is already a user. Sign in with that email.",
+    "The email connected to your GitHub account already exists.",
 };

@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 import { Button } from "./ui/Button";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { FIREBASE_ERRORS } from "@/lib/firebase/errors";
 
 
 const OAuthButtons = () => {
@@ -23,8 +24,9 @@ const OAuthButtons = () => {
     signInWithGoogle();
     if (googleError) {
       toast({
+        title: "Oops!",
         variant: "destructive",
-        description: `Error: ${googleError.message}`,
+        description: FIREBASE_ERRORS[googleError.message as keyof typeof FIREBASE_ERRORS] || googleError.message,
       });
     }
   };
@@ -37,8 +39,9 @@ const OAuthButtons = () => {
     signInWithGithub();
     if (githubError) {
       toast({
+        title: "Oops!",
         variant: "destructive",
-        description: `Error: ${githubError.message}`,
+        description: FIREBASE_ERRORS[githubError.message as keyof typeof FIREBASE_ERRORS] || githubError.message,
       });
     }
   };

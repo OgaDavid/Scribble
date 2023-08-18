@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/Label";
 import Link from "next/link";
 import OAuthButtons from "@/components/OAuthButtons";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { FIREBASE_ERRORS } from "@/lib/firebase/errors";
 
 const OnboardPage = () => {
   const router = useRouter();
@@ -45,23 +46,23 @@ const OnboardPage = () => {
 
     if (!validatePassword(signUpForm.password)) {
       toast({
-        title: "Weak Password!",
+        title: "Meh.. your password is weak! 🤒",
         variant: "destructive",
         description:
           "Your password must be at least 8 characters long with one uppercase letter, lowercase letter, number or special character",
       });
       return;
     }
-
-    createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
-
+    
     if(error) {
       toast({
-        title: "Error!",
+        title: "Oops! 🤒",
         variant: "destructive",
-        description: error.message
+        description: FIREBASE_ERRORS[error.message as keyof typeof FIREBASE_ERRORS] || error.message
       });
     }
+
+    createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
 
     setSignUpForm({
       email: "",
