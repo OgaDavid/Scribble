@@ -13,7 +13,6 @@ import Hamburger from "./Hamburger";
 import { MobileMenuItems } from "./MobileMenuItems";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
-import { toast } from "../ui/use-toast";
 import SearchBox from "./SearchBox";
 import { UserAvatar } from "./Avatar";
 
@@ -21,6 +20,7 @@ type NavbarProps = {};
 
 const Navbar: React.FC<NavbarProps> = () => {
   const [user, loading, error] = useAuthState(auth);
+  // console.log(user)
 
   // state and function for fixed navbar on scroll
   const [isFixed, setIsFixed] = useState<boolean>(false);
@@ -55,9 +55,6 @@ const Navbar: React.FC<NavbarProps> = () => {
   function handleSignOut() {
     signOut();
     closeNavigation();
-    toast({
-      description: "User logged out!",
-    });
   }
 
   return (

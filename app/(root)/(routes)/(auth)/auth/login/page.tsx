@@ -47,22 +47,12 @@ const OnboardPage = () => {
 
     signInWithEmailAndPassword(logInForm.email, logInForm.password);
 
-    if (error) {
-      toast({
-        variant: "destructive",
-        title: "Oops!🤒",
-        description:
-          FIREBASE_ERRORS[error.message as keyof typeof FIREBASE_ERRORS] ||
-          error.message,
-      });
+    setLoginForm({
+      email: "",
+      password: "",
+    });
 
-      setLoginForm({
-        email: "",
-        password: "",
-      });
-
-      return;
-    }
+    return;
   };
 
   useEffect(() => {
@@ -91,6 +81,17 @@ const OnboardPage = () => {
           <h1 className="text-4xl md:text-5xl max- text-center max-w-[800px] pt-5 md:leading-[62px] font-extrabold">
             Login
           </h1>
+          <div className="flex items-center">
+            <p className="text-brand-gray text-xs md:text-sm text-center max-w-[450px] pt-3">
+              Do not have an account?{" "}
+            </p>
+            <Link
+              href="/auth/signup"
+              className="text-brand-gray text-xs md:text-sm text-center max-w-[450px] pt-3 underline italic cursor-pointer"
+            >
+              Sign up
+            </Link>
+          </div>
           <div className="flex flex-col items-center gap-5">
             <OAuthButtons />
             <div className="p-2">
@@ -152,26 +153,36 @@ const OnboardPage = () => {
                       className="max-md:w-full"
                       type="submit"
                     >
-                      {loading ? (
-                        <Loader2 className="w-4 text-white h-4 animate-spin" />
-                      ) : (
-                        "Login"
-                      )}
+                      <div className="flex items-center gap-1">
+                        Login{" "}
+                        {loading && (
+                          <Loader2 className="w-4 text-white h-4 animate-spin" />
+                        )}
+                      </div>
                     </Button>
                   </div>
                 </div>
               </form>
             </div>
           </div>
+          {error && (
+            <div className="flex items-center">
+              <p className="text-red-600 text-xs md:text-sm text-center max-w-[450px] pt-2">
+                {FIREBASE_ERRORS[
+                  error.message as keyof typeof FIREBASE_ERRORS
+                ] || error.message}
+              </p>
+            </div>
+          )}
           <div className="flex items-center">
             <p className="text-brand-gray text-xs md:text-sm text-center max-w-[450px] pt-3">
-              Do not have an account?{" "}
+              Forgotten your password?{" "}
             </p>
             <Link
-              href="/auth/signup"
+              href="/auth/reset-password"
               className="text-brand-gray text-xs md:text-sm text-center max-w-[450px] pt-3 underline italic cursor-pointer"
             >
-              Sign up
+              Reset password
             </Link>
           </div>
         </div>

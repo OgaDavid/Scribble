@@ -63,7 +63,7 @@ const OnboardPage = () => {
     }
 
     createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
-
+    
     setSignUpForm({
       email: "",
       password: "",
@@ -170,11 +170,12 @@ const OnboardPage = () => {
                       className="max-md:w-full"
                       type="submit"
                     >
-                      {loading ? (
+                      <div className="flex items-center gap-1">
+                      Sign up{" "}
+                      {loading && (
                         <Loader2 className="w-4 text-white h-4 animate-spin" />
-                      ) : (
-                        "Sign up"
                       )}
+                    </div>
                     </Button>
                   </div>
                 </div>

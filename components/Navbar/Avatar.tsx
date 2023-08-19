@@ -15,7 +15,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import { useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
 import { useRouter } from "next/navigation";
-import { toast } from "../ui/use-toast";
 
 interface UserAvatarProps {
   url: string | null
@@ -26,9 +25,6 @@ export function UserAvatar({ url }: UserAvatarProps) {
   const router = useRouter();
   function handleSignOut() {
     signOut();
-    toast({
-      description: "User logged out!",
-    });
     router.push('/auth/login')
   }
 
