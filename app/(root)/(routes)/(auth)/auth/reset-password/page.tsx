@@ -63,7 +63,7 @@ const ResetPasswordPage = () => {
             Reset your password
           </h1>
           <p className="text-brand-gray text-xs md:text-sm text-center max-w-[450px] pt-3">
-            Enter the email associated with your account and we'll send you a
+            Enter the email associated with your account and we&apos;ll send you a
             reset link.
           </p>
           {success ? (
