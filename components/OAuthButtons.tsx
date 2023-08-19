@@ -1,8 +1,5 @@
 import { auth } from "@/lib/firebase/firebase.config";
-import {
-  useSignInWithGoogle,
-  useSignInWithGithub,
-} from "react-firebase-hooks/auth";
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { toast } from "./ui/use-toast";
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
@@ -11,53 +8,35 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FIREBASE_ERRORS } from "@/lib/firebase/errors";
 
-
 const OAuthButtons = () => {
-
   const router = useRouter();
 
   // setup for google oAuth
-  const [signInWithGoogle, googleUser, googleLoading, googleError] =
-    useSignInWithGoogle(auth);
+  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
   const googleSignIn = () => {
     signInWithGoogle();
-    if (googleError) {
+    if (error) {
       toast({
         title: "Oops!",
         variant: "destructive",
-        description: FIREBASE_ERRORS[googleError.message as keyof typeof FIREBASE_ERRORS] || googleError.message,
-      });
-    }
-  };
-
-  // setup for github oAuth
-  const [signInWithGithub, githubUser, githubLoading, githubError] =
-    useSignInWithGithub(auth);
-
-  const githubSignIn = () => {
-    signInWithGithub();
-    if (githubError) {
-      toast({
-        title: "Oops!",
-        variant: "destructive",
-        description: FIREBASE_ERRORS[githubError.message as keyof typeof FIREBASE_ERRORS] || githubError.message,
+        description:
+          FIREBASE_ERRORS[error.message as keyof typeof FIREBASE_ERRORS] ||
+          error.message,
       });
     }
   };
 
   // toast notification once user logs in
   useEffect(() => {
-    if (googleUser || githubUser) {
+    if (user) {
       toast({
-        description: `You are logged in as ${
-          googleUser?.user.email || githubUser?.user.email
-        }`,
+        description: `You are logged in as ${user?.user.email}`,
       });
       router.push("/");
     }
-  }, [googleUser, githubUser]);
-  
+  }, [user]);
+
   return (
     <div className="flex md:flex-row max-md:flex-col gap-5 md:gap-10 pt-10 items-center justify-center">
       <div>
@@ -65,43 +44,18 @@ const OAuthButtons = () => {
           className="w-[300px]"
           variant="outline"
           onClick={googleSignIn}
-          disabled={googleLoading}
+          disabled={loading}
         >
-          {googleLoading ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
-          ) : (
-            <span className="flex gap-2">
-              <Image
-                alt="google"
-                src="/assets/images/google.png"
-                width={21}
-                height={21}
-              />
-              Continue with Google
-            </span>
-          )}
-        </Button>
-      </div>
-      <div className="max-md:hidden">
-        <Button
-          className="w-[300px]"
-          variant="outline"
-          onClick={githubSignIn}
-          disabled={githubLoading}
-        >
-          {githubLoading ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
-          ) : (
-            <span className="flex gap-2">
-              <Image
-                alt="google"
-                src="/assets/images/github.png"
-                width={21}
-                height={21}
-              />
-              Continue with GitHub
-            </span>
-          )}
+          <span className="flex gap-2 items-center">
+            <Image
+              alt="google"
+              src="/assets/images/google.png"
+              width={21}
+              height={21}
+            />
+            Continue with Google
+            {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+          </span>
         </Button>
       </div>
     </div>

@@ -182,7 +182,7 @@ const OnboardPage = () => {
               href="/auth/reset-password"
               className="text-brand-gray text-xs md:text-sm text-center max-w-[450px] pt-3 underline italic cursor-pointer"
             >
-              Reset password
+              {" "}Reset password
             </Link>
           </div>
         </div>
