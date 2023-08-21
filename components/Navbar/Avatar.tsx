@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import { useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
 import { useRouter } from "next/navigation";
-import { CreateCommunity } from "../Modals/CreateCommunity";
+import { useCreateCommunityModal } from "@/hooks/use-create-community-modal";
 
 interface UserAvatarProps {
   url: string | null;
@@ -28,6 +28,8 @@ export function UserAvatar({ url }: UserAvatarProps) {
     signOut();
     router.push("/auth/login");
   }
+
+  const onOpen = useCreateCommunityModal((state) => state.onOpen);
 
   return (
     <DropdownMenu>
@@ -51,10 +53,10 @@ export function UserAvatar({ url }: UserAvatarProps) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
+        <DropdownMenuGroup onClick={onOpen}>
           <DropdownMenuItem>
             <Plus className="mr-2 h-4 w-4" />
-            <CreateCommunity />
+            <span>Create Community</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

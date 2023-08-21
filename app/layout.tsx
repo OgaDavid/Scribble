@@ -1,12 +1,13 @@
 // import Skeleton from "@/components/Navbar/Skeleton";
 import Footer from "@/components/Footer";
-import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import { Toaster } from "@/components/ui/Toaster";
+import ScrollToTop from "@/components/ScrollToTop";
+import { ModalProvider } from "@/providers/ModalProvider";
 
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import ScrollToTop from "@/components/ScrollToTop";
+import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
@@ -56,6 +57,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={plusJakartaSans.className}>
+        <ModalProvider />
           <Navbar />
           {children}
           <Footer />
