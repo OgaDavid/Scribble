@@ -15,9 +15,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import { useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
 import { useRouter } from "next/navigation";
+import { CreateCommunity } from "../Modals/CreateCommunity";
 
 interface UserAvatarProps {
-  url: string | null
+  url: string | null;
 }
 
 export function UserAvatar({ url }: UserAvatarProps) {
@@ -25,7 +26,7 @@ export function UserAvatar({ url }: UserAvatarProps) {
   const router = useRouter();
   function handleSignOut() {
     signOut();
-    router.push('/auth/login')
+    router.push("/auth/login");
   }
 
   return (
@@ -33,9 +34,7 @@ export function UserAvatar({ url }: UserAvatarProps) {
       <DropdownMenuTrigger className="cursor-pointer" asChild>
         <Avatar>
           <AvatarImage src={url || "/assets/images/fallback.jpg"} />
-          <AvatarFallback>
-            #
-          </AvatarFallback>
+          <AvatarFallback>#</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
@@ -55,7 +54,7 @@ export function UserAvatar({ url }: UserAvatarProps) {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <Plus className="mr-2 h-4 w-4" />
-            <span>Create Community</span>
+            <CreateCommunity />
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

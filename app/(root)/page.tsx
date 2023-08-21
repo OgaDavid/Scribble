@@ -7,14 +7,14 @@ import Publish from "@/components/Landing Page/Publish";
 
 export default function Home() {
   return (
-    <main className="">
+    <main>
       <Container>
         <Hero />
         <Companies />
         <Publish />
+        <FAQ />
+        <GetStarted />
       </Container>
-      <FAQ />
-      <GetStarted />
     </main>
   );
 }
