@@ -1,14 +1,14 @@
 "use client";
 
+import { useState } from "react";
+
 import { Modal } from "@/components/ui/Modal";
 import { useCreateCommunityModal } from "@/hooks/use-create-community-modal";
 import { Input } from "@/components/ui/Input";
 import { AlertCircle } from "lucide-react";
-import { useState } from "react";
 import { Label } from "@/components/ui/Label";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
-import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Button } from "../ui/Button";
 

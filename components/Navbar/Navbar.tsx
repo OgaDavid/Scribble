@@ -15,6 +15,7 @@ import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase/firebase.config";
 import SearchBox from "./SearchBox";
 import { UserAvatar } from "./Avatar";
+import { useCreateCommunityModal } from "@/hooks/use-create-community-modal";
 
 type NavbarProps = {};
 
@@ -56,6 +57,8 @@ const Navbar: React.FC<NavbarProps> = () => {
     signOut();
     closeNavigation();
   }
+
+  const onOpen = useCreateCommunityModal((state) => state.onOpen);
 
   return (
     <>
@@ -110,7 +113,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                       </div>
                     </TooltipContainer>
                     <TooltipContainer text="Create a community">
-                      <div className="hover:bg-gray-100 cursor-pointer hover:rounded-sm transition duration-200 p-2">
+                      <div onClick={onOpen} className="hover:bg-gray-100 cursor-pointer hover:rounded-sm transition duration-200 p-2">
                         <BadgePlus className="w-5 h-5" />
                       </div>
                     </TooltipContainer>
