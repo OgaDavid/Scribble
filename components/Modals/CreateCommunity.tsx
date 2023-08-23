@@ -32,13 +32,6 @@ export const CreateCommunity = () => {
     setCharsRemaining(21 - event.target.value.length);
   };
 
-  const onCommunityTypeChange = (
-    event: React.ChangeEvent<HTMLButtonElement>
-  ) => {
-    setCommunityType(event.target.name);
-    console.log(communityType);
-  };
-
   const handleCreateCommunity = async () => {
     if (error) {
       setError("");
@@ -111,7 +104,6 @@ export const CreateCommunity = () => {
           <RadioGroup defaultValue="public">
             <div onClick={() => setCommunityType("public")} className="flex items-top space-x-2">
               <RadioGroupItem
-                // onChange={(onCommunityTypeChange)}
                 value="public"
                 id="public"
               />
@@ -129,7 +121,6 @@ export const CreateCommunity = () => {
             </div>
             <div onClick={() => setCommunityType("private")} className="flex items-top space-x-2">
               <RadioGroupItem
-                // onChange={(onCommunityTypeChange)}
                 value="private"
                 id="private"
               />
@@ -148,7 +139,6 @@ export const CreateCommunity = () => {
             </div>
             <div onClick={() => setCommunityType("restricted")} className="flex items-top space-x-2">
               <RadioGroupItem
-                // onChange={(onCommunityTypeChange)}
                 value="restricted"
                 id="restricted"
               />
