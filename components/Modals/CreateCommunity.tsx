@@ -86,8 +86,8 @@ export const CreateCommunity = () => {
         <div>
           <Label htmlFor="community name">Name</Label>
           <span className="text-red-600 py-1 font-medium flex items-center gap-1 text-xs">
-            <AlertCircle className="w-3 h-3 max-md:hidden" />
-            Community names including capitalization cannot be edited!
+            <AlertCircle className="w-3 h-3" />
+            Community names cannot be edited!
           </span>
           <Input
             value={communityName}
