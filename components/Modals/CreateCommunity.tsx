@@ -17,6 +17,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Upload from "../Upload";
 
 export const CreateCommunity = () => {
   const [user] = useAuthState(auth);
@@ -92,7 +93,7 @@ export const CreateCommunity = () => {
       isOpen={createCommunityModal.isOpen}
       onClose={createCommunityModal.onClose}
     >
-      <Tabs defaultValue="form" className="w-[400px]">
+      <Tabs defaultValue="form" className="md:w-[400px]">
         <TabsList>
           <TabsTrigger value="form">Details</TabsTrigger>
           <TabsTrigger value="imageUpload">Upload Image</TabsTrigger>
@@ -124,8 +125,8 @@ export const CreateCommunity = () => {
                   <p className="text-xs py-1 pl-1 text-red-600">{error}</p>
                 )}
               </div>
-              <div>
-                <Label htmlFor="community description">Description</Label>
+              <div className="mt-2">
+                <Label  htmlFor="community description">Description</Label>
                 <Textarea
                   onChange={handleDescriptionChange}
                   value={communityDescription}
@@ -213,7 +214,12 @@ export const CreateCommunity = () => {
           </div>
         </TabsContent>
         <TabsContent value="imageUpload">
-          Change your password here.
+          <div className="py-2">
+            <h3 className="text-muted-foreground text-sm">Upload your community logo.</h3>
+          </div>
+          <div className="">
+            <Upload />
+          </div>
         </TabsContent>
       </Tabs>
     </Modal>
