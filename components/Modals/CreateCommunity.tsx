@@ -15,6 +15,8 @@ import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, firestore } from "@/lib/firebase/firebase.config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export const CreateCommunity = () => {
   const [user] = useAuthState(auth);
@@ -90,115 +92,130 @@ export const CreateCommunity = () => {
       isOpen={createCommunityModal.isOpen}
       onClose={createCommunityModal.onClose}
     >
-      <div className="flex flex-col">
-        <div>
-          <Label htmlFor="community name">Name</Label>
-          <span className="text-red-600 py-1 font-medium flex items-center gap-1 text-xs">
-            <AlertCircle className="w-3 h-3" />
-            Community names cannot be edited!
-          </span>
-          <Input
-            value={communityName}
-            onChange={handleChange}
-            name="community name"
-            placeholder="Enter community name"
-          />
-          <p
-            className={cn(
-              charsRemaining === 0 && "text-red-600",
-              "py-1 pl-1 text-xs"
-            )}
-          >
-            {charsRemaining} characters remaining.
-          </p>
-          {error && <p className="text-xs py-1 pl-1 text-red-600">{error}</p>}
-        </div>
-        <div>
-          <Label htmlFor="community description">Description</Label>
-          <Textarea
-            onChange={handleDescriptionChange}
-            value={communityDescription}
-            placeholder="Your community description"
-          />
-          <p
-            className={cn(
-              descriptionCharsRemaining === 0 && "text-red-600",
-              "py-1 pl-1 text-xs"
-            )}
-          >
-            {descriptionCharsRemaining} characters remaining.
-          </p>
-        </div>
-        <Separator className="my-3" />
-        <div>
-          <h3 className="font-bold pb-3">Community Type</h3>
-          <RadioGroup defaultValue="public">
-            <div
-              onClick={() => setCommunityType("public")}
-              className="flex items-top space-x-2"
-            >
-              <RadioGroupItem value="public" id="public" />
-              <div className="grid gap-1.5 leading-none">
-                <label
-                  htmlFor="public"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      <Tabs defaultValue="form" className="w-[400px]">
+        <TabsList>
+          <TabsTrigger value="form">Details</TabsTrigger>
+          <TabsTrigger value="imageUpload">Upload Image</TabsTrigger>
+        </TabsList>
+        <TabsContent value="form">
+          <div className="flex flex-col">
+            <ScrollArea className="md:h-[300px]">
+              <div>
+                <Label htmlFor="community name">Name</Label>
+                <span className="text-red-600 py-1 font-medium flex items-center gap-1 text-xs">
+                  <AlertCircle className="w-3 h-3" />
+                  Community names cannot be edited!
+                </span>
+                <Input
+                  value={communityName}
+                  onChange={handleChange}
+                  name="community name"
+                  placeholder="Enter community name"
+                />
+                <p
+                  className={cn(
+                    charsRemaining === 0 && "text-red-600",
+                    "py-1 pl-1 text-xs"
+                  )}
                 >
-                  Public
-                </label>
-                <p className="text-xs text-muted-foreground">
-                  Anyone can view, post and comment to this community.
+                  {charsRemaining} characters remaining.
+                </p>
+                {error && (
+                  <p className="text-xs py-1 pl-1 text-red-600">{error}</p>
+                )}
+              </div>
+              <div>
+                <Label htmlFor="community description">Description</Label>
+                <Textarea
+                  onChange={handleDescriptionChange}
+                  value={communityDescription}
+                  placeholder="Your community description"
+                />
+                <p
+                  className={cn(
+                    descriptionCharsRemaining === 0 && "text-red-600",
+                    "py-1 pl-1 text-xs"
+                  )}
+                >
+                  {descriptionCharsRemaining} characters remaining.
                 </p>
               </div>
-            </div>
-            <div
-              onClick={() => setCommunityType("private")}
-              className="flex items-top space-x-2"
-            >
-              <RadioGroupItem value="private" id="private" />
-              <div className="grid gap-1.5 leading-none">
-                <label
-                  htmlFor="private"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Private
-                </label>
-                <p className="text-xs text-muted-foreground">
-                  Only approved users can view, post, and comment to this
-                  community.
-                </p>
+              <Separator className="my-3" />
+              <div>
+                <h3 className="font-bold pb-3">Community Type</h3>
+                <RadioGroup defaultValue="public">
+                  <div
+                    onClick={() => setCommunityType("public")}
+                    className="flex items-top space-x-2"
+                  >
+                    <RadioGroupItem value="public" id="public" />
+                    <div className="grid gap-1.5 leading-none">
+                      <label
+                        htmlFor="public"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Public
+                      </label>
+                      <p className="text-xs text-muted-foreground">
+                        Anyone can view, post and comment to this community.
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    onClick={() => setCommunityType("private")}
+                    className="flex items-top space-x-2"
+                  >
+                    <RadioGroupItem value="private" id="private" />
+                    <div className="grid gap-1.5 leading-none">
+                      <label
+                        htmlFor="private"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Private
+                      </label>
+                      <p className="text-xs text-muted-foreground">
+                        Only approved users can view, post, and comment to this
+                        community.
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    onClick={() => setCommunityType("restricted")}
+                    className="flex items-top space-x-2"
+                  >
+                    <RadioGroupItem value="restricted" id="restricted" />
+                    <div className="grid gap-1.5 leading-none">
+                      <label
+                        htmlFor="restricted"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Restricted
+                      </label>
+                      <p className="text-xs text-muted-foreground">
+                        Any one can view this community but, only approved users
+                        can post.
+                      </p>
+                    </div>
+                  </div>
+                </RadioGroup>
               </div>
+            </ScrollArea>
+            <div className="flex mt-5 md:justify-end">
+              <Button onClick={handleCreateCommunity} className="max-md:w-full">
+                <div className="flex items-center gap-1">
+                  Create community{" "}
+                  {loading && (
+                    <Loader2 className="w-4 text-white h-4 animate-spin" />
+                  )}
+                </div>
+              </Button>
             </div>
-            <div
-              onClick={() => setCommunityType("restricted")}
-              className="flex items-top space-x-2"
-            >
-              <RadioGroupItem value="restricted" id="restricted" />
-              <div className="grid gap-1.5 leading-none">
-                <label
-                  htmlFor="restricted"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Restricted
-                </label>
-                <p className="text-xs text-muted-foreground">
-                  Any one can view this community but, only approved users can
-                  post.
-                </p>
-              </div>
-            </div>
-          </RadioGroup>
-        </div>
-        <div className="flex mt-5 md:justify-end">
-          <Button onClick={handleCreateCommunity} className="max-md:w-full">
-            <div className="flex items-center gap-1">
-              Create community{" "}
-              {loading && (
-                <Loader2 className="w-4 text-white h-4 animate-spin" />
-              )}
-            </div>
-          </Button>
-        </div>
-      </div>
+          </div>
+        </TabsContent>
+        <TabsContent value="imageUpload">
+          Change your password here.
+        </TabsContent>
+      </Tabs>
     </Modal>
   );
 };
