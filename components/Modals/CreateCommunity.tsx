@@ -2,24 +2,23 @@
 
 import { useState } from "react";
 
-import { Modal } from "@/components/ui/Modal";
-import { useCreateCommunityModal } from "@/hooks/use-create-community-modal";
-import { Input } from "@/components/ui/Input";
-import { AlertCircle, ImagePlus, Loader2, Trash } from "lucide-react";
-import { Label } from "@/components/ui/Label";
-import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/Button";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
-import { auth, firestore } from "@/lib/firebase/firebase.config";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { Modal } from "@/components/ui/Modal";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { CldUploadWidget } from "next-cloudinary";
-import Upload from "../Upload";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import { useCreateCommunityModal } from "@/hooks/use-create-community-modal";
+import { auth, firestore } from "@/lib/firebase/firebase.config";
+import { cn } from "@/lib/utils";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { AlertCircle, Loader2, Trash } from "lucide-react";
 import Image from "next/image";
+import { useAuthState } from "react-firebase-hooks/auth";
+import Upload from "../Upload";
 
 export const CreateCommunity = () => {
   const [user] = useAuthState(auth);
@@ -89,6 +88,8 @@ export const CreateCommunity = () => {
 
     setLoading(false);
     setImageUrl("")
+    setCommunityDescription("")
+    setCommunityName("")
   };
 
   return (
