@@ -18,6 +18,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Upload from "../Upload";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export const CreateCommunity = () => {
   const [user] = useAuthState(auth);
@@ -102,11 +107,20 @@ export const CreateCommunity = () => {
           <div className="flex flex-col">
             <ScrollArea className="md:h-[300px]">
               <div>
-                <Label htmlFor="community name">Name</Label>
-                <span className="text-red-600 py-1 font-medium flex items-center gap-1 text-xs">
-                  <AlertCircle className="w-3 h-3" />
-                  Community names cannot be edited!
-                </span>
+                <Label
+                  className="flex mb-2 items-center gap-1"
+                  htmlFor="community name"
+                >
+                  <span>Name</span>
+                  <span>
+                    <Popover>
+                      <PopoverTrigger><AlertCircle className="w-3 cursor- text-muted-foreground h-3 md:mt-2" /></PopoverTrigger>
+                      <PopoverContent className="text-xs text-red-600">
+                      Community names cannot be edited!
+                      </PopoverContent>
+                    </Popover>
+                  </span>
+                </Label>
                 <Input
                   value={communityName}
                   onChange={handleChange}
@@ -126,7 +140,7 @@ export const CreateCommunity = () => {
                 )}
               </div>
               <div className="mt-2">
-                <Label  htmlFor="community description">Description</Label>
+                <Label htmlFor="community description">Description</Label>
                 <Textarea
                   onChange={handleDescriptionChange}
                   value={communityDescription}
@@ -215,7 +229,9 @@ export const CreateCommunity = () => {
         </TabsContent>
         <TabsContent value="imageUpload">
           <div className="py-2">
-            <h3 className="text-muted-foreground text-sm">Upload your community logo.</h3>
+            <h3 className="text-muted-foreground text-sm">
+              Upload your community logo.
+            </h3>
           </div>
           <div className="">
             <Upload />
