@@ -90,6 +90,7 @@ export const CreateCommunity = () => {
     setImageUrl("")
     setCommunityDescription("")
     setCommunityName("")
+    createCommunityModal.onClose()
   };
 
   return (
