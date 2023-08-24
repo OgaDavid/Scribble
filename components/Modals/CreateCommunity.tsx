@@ -224,7 +224,7 @@ export const CreateCommunity = () => {
           <div className="py-2">
             <h3 className="text-muted-foreground text-sm">
               {imageUrl === ""
-                ? "Upload an image for your community"
+                ? "Upload your community logo."
                 : "Upload successful!🙌"}
             </h3>
           </div>
