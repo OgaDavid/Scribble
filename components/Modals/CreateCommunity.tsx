@@ -84,6 +84,8 @@ export const CreateCommunity = () => {
     } catch (error: any) {
       console.log("Handle create community error", error);
       setError(error.message);
+      setLoading(false)
+      return;
     }
 
     setLoading(false);
