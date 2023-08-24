@@ -11,18 +11,20 @@ const Footer = () => {
     <footer>
       <Container>
         <Separator className="mt-1" />
-        <div className="flex justify-between max-md:gap-8 mb-20 flex-wrap items-start mt-5 md:mt-10">
+        <div className="flex justify-between max-md:gap-8 mb-10 md:mb-20 flex-wrap items-start mt-5 md:mt-10">
           <div className="flex flex-col items-start gap-5">
+            <div className="flex flex-col gap-2 items-start">
             <Logo />
-            <p className="font-medium max-w-[356px] text-brand-gray">
+            <p className="font-medium max-md:text-sm max-w-[356px] text-brand-gray">
               Post articles, join communities, get relevant content related to
               you.
             </p>
+            </div>
             <div>
               <h4 className="text-lg md:text-2xl font-extrabold">Legals</h4>
-              <ul className="font-medium mt-4 text-brand-gray">
-                <li className="cursor-pointer hover:underline">Terms & Conditions</li>
-                <li className="cursor-pointer hover:underline">Privacy Policy</li>
+              <ul className="font-medium flex mt-4 flex-col gap-4 text-brand-gray">
+                <li className="cursor-pointer max-md:text-sm hover:underline">Terms & Conditions</li>
+                <li className="cursor-pointer max-md:text-sm hover:underline">Privacy Policy</li>
               </ul>
             </div>
           </div>
@@ -32,18 +34,18 @@ const Footer = () => {
                 Quick links
               </h4>
               <ul className="font-medium flex mt-4 flex-col gap-4 text-brand-gray">
-                <li className="cursor-pointer hover:underline">Home Page</li>
-                <li className="cursor-pointer hover:underline">Product</li>
-                <li className="cursor-pointer hover:underline">About Us</li>
-                <li className="cursor-pointer hover:underline">FAQ</li>
-                <li className="cursor-pointer hover:underline">Contact us</li>
+                <li className="cursor-pointer max-md:text-sm hover:underline">Home Page</li>
+                <li className="cursor-pointer max-md:text-sm hover:underline">Product</li>
+                <li className="cursor-pointer max-md:text-sm hover:underline">About Us</li>
+                <li className="cursor-pointer max-md:text-sm hover:underline">FAQ</li>
+                <li className="cursor-pointer max-md:text-sm hover:underline">Contact us</li>
               </ul>
             </div>
             <div>
               <h4 className="text-lg md:text-2xl font-extrabold">
                 Social Media
               </h4>
-              <p className="font-medium text-brand-gray">
+              <p className="font-medium max-md:text-sm text-brand-gray">
                 Follow us on our social media.
               </p>
               <div className="flex items-center mt-[32px] gap-3">
@@ -94,14 +96,14 @@ const Footer = () => {
                 </TooltipContainer>
               </div>
             </div>
-            <div className="space-y-[32px]">
-              <h4 className="text-lg md:text-2xl font-extrabold">
+            <div className="md:space-y-[32px]">
+              <h4 className="text-lg max-md:mb-3 md:text-2xl font-extrabold">
                 Download our App
               </h4>
-              <div className="flex flex-col gap-4 items-center">
+              <div className="flex md:flex-col gap-4 items-center">
                 <TooltipContainer text="Download scribble on Google play">
                   <Image
-                    className="cursor-pointer"
+                    className="cursor-pointer max-md:w-[120px]"
                     alt="google play"
                     src="/assets/images/google-play.svg"
                     width={185}
@@ -110,7 +112,7 @@ const Footer = () => {
                 </TooltipContainer>
                 <TooltipContainer text="Download scribble on the App store">
                   <Image
-                    className="cursor-pointer"
+                    className="cursor-pointer max-md:w-[120px]"
                     alt="app store"
                     src="/assets/images/app-store.svg"
                     width={185}

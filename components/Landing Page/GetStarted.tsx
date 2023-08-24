@@ -25,8 +25,7 @@ const GetStarted = () => {
               />
             </div>
             <p className="text-brand-gray text-sm md:text-lg text-center max-w-[800px] pt-3">
-              Scribble is a dynamic and inclusive network of communities. Just
-              like Reddit, but with its own unique flair, Scribble offers a
+              Scribble is an inclusive network of communities. Scribble offers a
               seamless platform for users to engage in a wide range of topics,
               creating a rich tapestry of conversations.
             </p>
@@ -34,7 +33,7 @@ const GetStarted = () => {
           <div className="mt-7 flex items-center justify-center gap-6">
             <Button asChild className="bg-black flex gap-1">
               <Link className="flex items-center" href="/auth/signup">
-                <span>Try Scribble</span>{" "}
+                <span className="max-md:text-xs">Try Scribble</span>{" "}
                 <ArrowRight className="w-4 mt-[1px] h-4" />
               </Link>
             </Button>
@@ -42,7 +41,7 @@ const GetStarted = () => {
               className="text-brand-purple font-medium flex items-center gap-1"
               href=""
             >
-              <span>Request a demo</span>
+              <span className="max-md:text-xs">Request a demo</span>
               <ChevronRight className="w-4 h-4 mt-[1px]" />
             </Link>
           </div>
