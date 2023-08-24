@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Modal } from "@/components/ui/Modal";
 import { useCreateCommunityModal } from "@/hooks/use-create-community-modal";
 import { Input } from "@/components/ui/Input";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, ImagePlus, Loader2, Trash } from "lucide-react";
 import { Label } from "@/components/ui/Label";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
@@ -17,12 +17,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { CldUploadWidget } from "next-cloudinary";
 import Upload from "../Upload";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import Image from "next/image";
 
 export const CreateCommunity = () => {
   const [user] = useAuthState(auth);
@@ -37,6 +34,7 @@ export const CreateCommunity = () => {
     useState(150);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 21) return;
@@ -81,6 +79,7 @@ export const CreateCommunity = () => {
         createdAt: serverTimestamp(),
         numberOfMembers: 1,
         description: communityDescription,
+        imageUrl: imageUrl,
         privacyType: communityType,
       });
     } catch (error: any) {
@@ -89,6 +88,7 @@ export const CreateCommunity = () => {
     }
 
     setLoading(false);
+    setImageUrl("")
   };
 
   return (
@@ -107,20 +107,11 @@ export const CreateCommunity = () => {
           <div className="flex flex-col">
             <ScrollArea className="md:h-[300px]">
               <div>
-                <Label
-                  className="flex mb-2 items-center gap-1"
-                  htmlFor="community name"
-                >
-                  <span>Name</span>
-                  <span>
-                    <Popover>
-                      <PopoverTrigger><AlertCircle className="w-3 cursor- text-muted-foreground h-3 md:mt-2" /></PopoverTrigger>
-                      <PopoverContent className="text-xs text-red-600">
-                      Community names cannot be edited!
-                      </PopoverContent>
-                    </Popover>
-                  </span>
-                </Label>
+                <Label htmlFor="community name">Name</Label>
+                <span className="text-red-600 py-1 font-medium flex items-center gap-1 text-xs">
+                  <AlertCircle className="w-3 h-3" />
+                  Community names cannot be edited!
+                </span>
                 <Input
                   value={communityName}
                   onChange={handleChange}
@@ -230,11 +221,44 @@ export const CreateCommunity = () => {
         <TabsContent value="imageUpload">
           <div className="py-2">
             <h3 className="text-muted-foreground text-sm">
-              Upload your community logo.
+              {imageUrl === ""
+                ? "Upload an image for your community"
+                : "Upload successful!🙌"}
             </h3>
           </div>
           <div className="">
-            <Upload />
+            {imageUrl === "" ? (
+              <Upload setImageUrl={setImageUrl} />
+            ) : (
+              <div className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
+                <div className="z-10 absolute top-2 right-2">
+                  <Button
+                    type="button"
+                    onClick={() => setImageUrl("")}
+                    variant="destructive"
+                    size="sm"
+                  >
+                    <Trash className="h-4 w-4" />
+                  </Button>
+                </div>
+                <Image
+                  fill
+                  className="object-cover"
+                  alt="Image"
+                  src={imageUrl}
+                />
+              </div>
+            )}
+            <div className="flex mt-5 md:justify-end">
+              <Button onClick={handleCreateCommunity} className="max-md:w-full">
+                <div className="flex items-center gap-1">
+                  Create community{" "}
+                  {loading && (
+                    <Loader2 className="w-4 text-white h-4 animate-spin" />
+                  )}
+                </div>
+              </Button>
+            </div>
           </div>
         </TabsContent>
       </Tabs>
