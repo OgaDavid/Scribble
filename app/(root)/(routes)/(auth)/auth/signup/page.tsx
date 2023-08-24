@@ -4,7 +4,7 @@ import Container from "@/components/Container";
 import { Button } from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { auth } from "@/lib/firebase/firebase.config";
+import { auth, firestore } from "@/lib/firebase/firebase.config";
 import { useEffect, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
@@ -14,6 +14,8 @@ import Link from "next/link";
 import OAuthButtons from "@/components/OAuthButtons";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { FIREBASE_ERRORS } from "@/lib/firebase/errors";
+import { User } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 
 const OnboardPage = () => {
   const router = useRouter();
@@ -36,7 +38,7 @@ const OnboardPage = () => {
     return passwordRegex.test(password);
   };
 
-  const [createUserWithEmailAndPassword, user, loading, error] =
+  const [createUserWithEmailAndPassword, userCredentials, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
   const signUpWithEmailAndPassword = (
@@ -53,33 +55,46 @@ const OnboardPage = () => {
       });
       return;
     }
-    
-    if(error) {
+
+    if (error) {
       toast({
         title: "Oops! 🤒",
         variant: "destructive",
-        description: FIREBASE_ERRORS[error.message as keyof typeof FIREBASE_ERRORS] || error.message
+        description:
+          FIREBASE_ERRORS[error.message as keyof typeof FIREBASE_ERRORS] ||
+          error.message,
       });
     }
 
     createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
-    
+
     setSignUpForm({
       email: "",
       password: "",
-    })
+    });
+  };
+
+  // create user credentials document and store in firestore
+  const createUserDoc = async (user: User) => {
+    await addDoc(
+      collection(firestore, "users"),
+      JSON.parse(JSON.stringify(user))
+    );
   };
 
   useEffect(() => {
-    if (user) {
+    if (userCredentials) {
+      // add user document to db
+      createUserDoc(userCredentials.user);
+
       toast({
         title: "Account Created! 🎉",
         description: "Welcome to scribble, whoop whoop!",
-        variant: "default"
+        variant: "default",
       });
       router.push("/");
     }
-  }, [user])
+  }, [userCredentials]);
 
   // toggle password
   const [showPassword, setShowPassword] = useState(false);
@@ -120,7 +135,10 @@ const OnboardPage = () => {
                   OR
                 </p>
               </div>
-              <form onSubmit={signUpWithEmailAndPassword} className="flex md:flex-row max-md:flex-col gap-5 md:gap-10 items-center justify-center">
+              <form
+                onSubmit={signUpWithEmailAndPassword}
+                className="flex md:flex-row max-md:flex-col gap-5 md:gap-10 items-center justify-center"
+              >
                 <div className="flex flex-col gap-1">
                   <Label
                     htmlFor="email"
@@ -171,11 +189,11 @@ const OnboardPage = () => {
                       type="submit"
                     >
                       <div className="flex items-center gap-1">
-                      Sign up{" "}
-                      {loading && (
-                        <Loader2 className="w-4 text-white h-4 animate-spin" />
-                      )}
-                    </div>
+                        Sign up{" "}
+                        {loading && (
+                          <Loader2 className="w-4 text-white h-4 animate-spin" />
+                        )}
+                      </div>
                     </Button>
                   </div>
                 </div>

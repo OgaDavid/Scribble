@@ -1,4 +1,4 @@
-import { auth } from "@/lib/firebase/firebase.config";
+import { auth, firestore } from "@/lib/firebase/firebase.config";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { toast } from "./ui/use-toast";
 import Image from "next/image";
@@ -7,12 +7,21 @@ import { Button } from "./ui/Button";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FIREBASE_ERRORS } from "@/lib/firebase/errors";
+import { doc, setDoc } from "firebase/firestore";
+import { User } from "firebase/auth";
 
 const OAuthButtons = () => {
   const router = useRouter();
 
   // setup for google oAuth
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, userCredentials, loading, error] =
+    useSignInWithGoogle(auth);
+
+  // create user credentials document and store in firestore
+  const createUserDoc = async (user: User) => {
+    const userDocRef = doc(firestore, "users", user.uid);
+    await setDoc(userDocRef, JSON.parse(JSON.stringify(user)));
+  };
 
   const googleSignIn = () => {
     signInWithGoogle();
@@ -29,13 +38,16 @@ const OAuthButtons = () => {
 
   // toast notification once user logs in
   useEffect(() => {
-    if (user) {
+    if (userCredentials) {
+      // store user in db
+      createUserDoc(userCredentials.user);
+
       toast({
-        description: `You are logged in as ${user?.user.email}`,
+        description: `You are logged in as ${userCredentials?.user.email}`,
       });
       router.push("/");
     }
-  }, [user]);
+  }, [userCredentials]);
 
   return (
     <div className="flex md:flex-row max-md:flex-col gap-5 md:gap-10 pt-10 items-center justify-center">
