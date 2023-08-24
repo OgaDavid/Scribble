@@ -9,11 +9,12 @@ import { AlertCircle, Loader2 } from "lucide-react";
 import { Label } from "@/components/ui/Label";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Button } from "../ui/Button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Button } from "@/components/ui/Button";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, firestore } from "@/lib/firebase/firebase.config";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Textarea } from "@/components/ui/textarea";
 
 export const CreateCommunity = () => {
   const [user] = useAuthState(auth);
@@ -22,7 +23,10 @@ export const CreateCommunity = () => {
 
   const [communityName, setCommunityName] = useState("");
   const [communityType, setCommunityType] = useState("public");
+  const [communityDescription, setCommunityDescription] = useState("");
   const [charsRemaining, setCharsRemaining] = useState(21);
+  const [descriptionCharsRemaining, setDescriptionCharsRemaining] =
+    useState(150);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -30,6 +34,14 @@ export const CreateCommunity = () => {
     if (event.target.value.length > 21) return;
     setCommunityName(event.target.value);
     setCharsRemaining(21 - event.target.value.length);
+  };
+
+  const handleDescriptionChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    if (event.target.value.length > 150) return;
+    setCommunityDescription(event.target.value);
+    setDescriptionCharsRemaining(150 - event.target.value.length);
   };
 
   const handleCreateCommunity = async () => {
@@ -51,13 +63,16 @@ export const CreateCommunity = () => {
       const communityDoc = await getDoc(communityDocRef);
 
       if (communityDoc.exists()) {
-        throw new Error(`Sorry, "${communityName}" is taken. Try another community name.`);
+        throw new Error(
+          `Sorry, "${communityName}" is taken. Try another community name.`
+        );
       }
 
       await setDoc(communityDocRef, {
         creatorID: user?.uid,
         createdAt: serverTimestamp(),
         numberOfMembers: 1,
+        description: communityDescription,
         privacyType: communityType,
       });
     } catch (error: any) {
@@ -98,15 +113,31 @@ export const CreateCommunity = () => {
           </p>
           {error && <p className="text-xs py-1 pl-1 text-red-600">{error}</p>}
         </div>
+        <div>
+          <Label htmlFor="community description">Description</Label>
+          <Textarea
+            onChange={handleDescriptionChange}
+            value={communityDescription}
+            placeholder="Your community description"
+          />
+          <p
+            className={cn(
+              descriptionCharsRemaining === 0 && "text-red-600",
+              "py-1 pl-1 text-xs"
+            )}
+          >
+            {descriptionCharsRemaining} characters remaining.
+          </p>
+        </div>
         <Separator className="my-3" />
         <div>
           <h3 className="font-bold pb-3">Community Type</h3>
           <RadioGroup defaultValue="public">
-            <div onClick={() => setCommunityType("public")} className="flex items-top space-x-2">
-              <RadioGroupItem
-                value="public"
-                id="public"
-              />
+            <div
+              onClick={() => setCommunityType("public")}
+              className="flex items-top space-x-2"
+            >
+              <RadioGroupItem value="public" id="public" />
               <div className="grid gap-1.5 leading-none">
                 <label
                   htmlFor="public"
@@ -119,11 +150,11 @@ export const CreateCommunity = () => {
                 </p>
               </div>
             </div>
-            <div onClick={() => setCommunityType("private")} className="flex items-top space-x-2">
-              <RadioGroupItem
-                value="private"
-                id="private"
-              />
+            <div
+              onClick={() => setCommunityType("private")}
+              className="flex items-top space-x-2"
+            >
+              <RadioGroupItem value="private" id="private" />
               <div className="grid gap-1.5 leading-none">
                 <label
                   htmlFor="private"
@@ -137,11 +168,11 @@ export const CreateCommunity = () => {
                 </p>
               </div>
             </div>
-            <div onClick={() => setCommunityType("restricted")} className="flex items-top space-x-2">
-              <RadioGroupItem
-                value="restricted"
-                id="restricted"
-              />
+            <div
+              onClick={() => setCommunityType("restricted")}
+              className="flex items-top space-x-2"
+            >
+              <RadioGroupItem value="restricted" id="restricted" />
               <div className="grid gap-1.5 leading-none">
                 <label
                   htmlFor="restricted"
