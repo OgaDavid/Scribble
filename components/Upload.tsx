@@ -1,45 +1,34 @@
 "use client";
 
-import { ImagePlus } from "lucide-react";
-import { useEffect, useState } from "react";
-import { CldUploadWidget } from "next-cloudinary";
-import { Button } from "./ui/Button";
+import { UploadButton } from "@uploadthing/react";
+import "@uploadthing/react/styles.css";
+import { OurFileRouter } from "@/app/api/uploadthing/core";
+import { UploadFileResponse } from "uploadthing/client";
 
 interface UploadProps {
-  setImageUrl: (url: string) => void;  
+  setImageUrl: (url: UploadFileResponse[]) => void;
 }
 
 const Upload: React.FC<UploadProps> = ({ setImageUrl }) => {
-  // const [isMounted, setIsMounted] = useState(false);
-
-  // useEffect(() => {
-  //   setIsMounted(true);
-  // }, []);
-
-  const onUpload = (event: any) => {
-    setImageUrl(event.info.secure_url);
-  };
-
-  // if (!isMounted) {
-  //   return null;
-  // }
-
   return (
     <div className="w-80 md:w-96 h-52 border border-dashed rounded-lg flex items-center justify-center">
-      <CldUploadWidget onUpload={onUpload} uploadPreset="tknz4ps6">
-        {({ open }) => {
-          const onClick = () => {
-            open();
-          };
-
-          return (
-            <Button variant="outline" onClick={onClick}>
-              <ImagePlus className="h-4 w-4 mr-2" />
-              Upload an Image
-            </Button>
-          );
+      <UploadButton<OurFileRouter>
+        appearance={{
+          button:
+            "bg-transparent ut-ready:border-red-600 ut-ready:text-red-600 ut-uploading:cursor-not-allowed ut-uploading:text-muted-foreground text-foreground text-sm border border-muted-foreground",
         }}
-      </CldUploadWidget>
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          if (res) {
+            setImageUrl(res);
+          }
+          console.log("Files: ", res);
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
     </div>
   );
 };

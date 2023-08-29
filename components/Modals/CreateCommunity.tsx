@@ -17,16 +17,15 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import {
   doc,
-  getDoc,
   runTransaction,
   serverTimestamp,
-  setDoc,
 } from "firebase/firestore";
 import { AlertCircle, Loader2, Trash } from "lucide-react";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Upload from "../Upload";
 import { toast } from "../ui/use-toast";
+import { UploadFileResponse } from "uploadthing/client";
 
 export const CreateCommunity = () => {
   const [user] = useAuthState(auth);
@@ -43,7 +42,7 @@ export const CreateCommunity = () => {
     useState(150);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState<UploadFileResponse[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 21) return;
@@ -91,7 +90,7 @@ export const CreateCommunity = () => {
           createdAt: serverTimestamp(),
           numberOfMembers: 1,
           description: communityDescription,
-          imageUrl: imageUrl,
+          imageUrl: imageUrl[0].url,
           privacyType: communityType,
         });
 
@@ -122,7 +121,7 @@ export const CreateCommunity = () => {
     }
 
     setLoading(false);
-    setImageUrl("");
+    setImageUrl([]);
     setCommunityDescription("");
     setCommunityName("");
     createCommunityModal.onClose();
@@ -258,20 +257,20 @@ export const CreateCommunity = () => {
         <TabsContent value="imageUpload">
           <div className="py-2">
             <h3 className="text-muted-foreground text-sm">
-              {imageUrl === ""
+              {imageUrl.length === 0
                 ? "Upload your community logo."
                 : "Upload successful!🙌"}
             </h3>
           </div>
           <div className="">
-            {imageUrl === "" ? (
+            {imageUrl.length === 0 ? (
               <Upload setImageUrl={setImageUrl} />
             ) : (
               <div className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
                 <div className="z-10 absolute top-2 right-2">
                   <Button
                     type="button"
-                    onClick={() => setImageUrl("")}
+                    onClick={() => setImageUrl([])}
                     variant="destructive"
                     size="sm"
                   >
@@ -282,7 +281,7 @@ export const CreateCommunity = () => {
                   fill
                   className="object-cover"
                   alt="Image"
-                  src={imageUrl}
+                  src={imageUrl[0].url}
                 />
               </div>
             )}
