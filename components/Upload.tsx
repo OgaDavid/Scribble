@@ -10,19 +10,19 @@ interface UploadProps {
 }
 
 const Upload: React.FC<UploadProps> = ({ setImageUrl }) => {
-  const [isMounted, setIsMounted] = useState(false);
+  // const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsMounted(true);
+  // }, []);
 
   const onUpload = (event: any) => {
     setImageUrl(event.info.secure_url);
   };
 
-  if (!isMounted) {
-    return null;
-  }
+  // if (!isMounted) {
+  //   return null;
+  // }
 
   return (
     <div className="w-80 md:w-96 h-52 border border-dashed rounded-lg flex items-center justify-center">

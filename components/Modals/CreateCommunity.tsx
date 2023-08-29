@@ -14,14 +14,24 @@ import { Textarea } from "@/components/ui/textarea";
 import { useCreateCommunityModal } from "@/hooks/use-create-community-modal";
 import { auth, firestore } from "@/lib/firebase/firebase.config";
 import { cn } from "@/lib/utils";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import {
+  doc,
+  getDoc,
+  runTransaction,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import { AlertCircle, Loader2, Trash } from "lucide-react";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Upload from "../Upload";
+import { toast } from "../ui/use-toast";
 
 export const CreateCommunity = () => {
   const [user] = useAuthState(auth);
+
+  const router = useRouter();
 
   const createCommunityModal = useCreateCommunityModal();
 
@@ -65,34 +75,57 @@ export const CreateCommunity = () => {
 
     try {
       const communityDocRef = doc(firestore, "communities", communityName);
-      const communityDoc = await getDoc(communityDocRef);
 
-      if (communityDoc.exists()) {
-        throw new Error(
-          `Sorry, "${communityName}" is taken. Try another community name.`
+      await runTransaction(firestore, async (transaction) => {
+        // check if the community already exists
+        const communityDoc = await transaction.get(communityDocRef);
+
+        if (communityDoc.exists()) {
+          throw new Error(
+            `Sorry, "${communityName}" is taken. Try another community name.`
+          );
+        }
+
+        transaction.set(communityDocRef, {
+          creatorId: user?.uid,
+          createdAt: serverTimestamp(),
+          numberOfMembers: 1,
+          description: communityDescription,
+          imageUrl: imageUrl,
+          privacyType: communityType,
+        });
+
+        // create community snippet on the user
+        transaction.set(
+          doc(firestore, `users/${user?.uid}/communitySnippets`, communityName),
+          {
+            communityId: communityName,
+            communityDescription: communityDescription,
+            communityImageUrl: imageUrl,
+            isCreator: true,
+          }
         );
-      }
 
-      await setDoc(communityDocRef, {
-        creatorID: user?.uid,
-        createdAt: serverTimestamp(),
-        numberOfMembers: 1,
-        description: communityDescription,
-        imageUrl: imageUrl,
-        privacyType: communityType,
+        // redirect and toast
+        router.push(`/community/${communityName}`);
+        toast({
+          title: "Yay!🎉",
+          description: `${communityName} community created successfully`,
+        });
       });
+
     } catch (error: any) {
       console.log("Handle create community error", error);
       setError(error.message);
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
     setLoading(false);
-    setImageUrl("")
-    setCommunityDescription("")
-    setCommunityName("")
-    createCommunityModal.onClose()
+    setImageUrl("");
+    setCommunityDescription("");
+    setCommunityName("");
+    createCommunityModal.onClose();
   };
 
   return (
