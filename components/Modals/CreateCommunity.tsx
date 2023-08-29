@@ -23,9 +23,9 @@ import {
 import { AlertCircle, Loader2, Trash } from "lucide-react";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
-// import Upload from "../Upload";
+import Upload from "../Upload";
 import { toast } from "../ui/use-toast";
-// import { UploadFileResponse } from "uploadthing/client";
+import { UploadFileResponse } from "uploadthing/client";
 
 export const CreateCommunity = () => {
   const [user] = useAuthState(auth);
@@ -42,7 +42,7 @@ export const CreateCommunity = () => {
     useState(150);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  // const [imageUrl, setImageUrl] = useState<UploadFileResponse[]>([]);
+  const [imageUrl, setImageUrl] = useState<UploadFileResponse[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 21) return;
@@ -90,7 +90,7 @@ export const CreateCommunity = () => {
           createdAt: serverTimestamp(),
           numberOfMembers: 1,
           description: communityDescription,
-          // imageUrl: imageUrl[0].url,
+          imageUrl: imageUrl[0].url,
           privacyType: communityType,
         });
 
@@ -100,7 +100,7 @@ export const CreateCommunity = () => {
           {
             communityId: communityName,
             communityDescription: communityDescription,
-            // communityImageUrl: imageUrl,
+            communityImageUrl: imageUrl,
             isCreator: true,
           }
         );
@@ -121,7 +121,7 @@ export const CreateCommunity = () => {
     }
 
     setLoading(false);
-    // setImageUrl([]);
+    setImageUrl([]);
     setCommunityDescription("");
     setCommunityName("");
     createCommunityModal.onClose();
@@ -257,9 +257,9 @@ export const CreateCommunity = () => {
         <TabsContent value="imageUpload">
           <div className="py-2">
             <h3 className="text-muted-foreground text-sm">
-              {/* {imageUrl.length === 0
+              {imageUrl.length === 0
                 ? "Upload your community logo."
-                : "Upload successful!🙌"} */}
+                : "Upload successful!🙌"}
             </h3>
           </div>
           {/* <div className="">
