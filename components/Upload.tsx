@@ -1,7 +1,7 @@
 "use client";
 
 import { UploadButton } from "@uploadthing/react";
-import "@uploadthing/react/styles.css";
+// import "@uploadthing/react/styles.css";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import { UploadFileResponse } from "uploadthing/client";
 import { useEffect, useState } from "react";
