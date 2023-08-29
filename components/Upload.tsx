@@ -4,19 +4,30 @@ import { UploadButton } from "@uploadthing/react";
 import "@uploadthing/react/styles.css";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import { UploadFileResponse } from "uploadthing/client";
+import { useEffect, useState } from "react";
 
 interface UploadProps {
   setImageUrl: (url: UploadFileResponse[]) => void;
 }
 
 const Upload: React.FC<UploadProps> = ({ setImageUrl }) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="w-80 md:w-96 h-52 border border-dashed rounded-lg flex items-center justify-center">
       <UploadButton<OurFileRouter>
-        appearance={{
-          button:
-            "bg-transparent ut-ready:border-red-600 ut-ready:text-red-600 ut-uploading:cursor-not-allowed ut-uploading:text-muted-foreground text-foreground text-sm border border-muted-foreground",
-        }}
+        // appearance={{
+        //   button:
+        //     "bg-transparent ut-ready:border-red-600 ut-ready:text-red-600 ut-uploading:cursor-not-allowed ut-uploading:text-muted-foreground text-foreground text-sm border border-muted-foreground",
+        // }}
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
           if (res) {

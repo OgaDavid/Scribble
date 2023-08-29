@@ -262,7 +262,7 @@ export const CreateCommunity = () => {
                 : "Upload successful!🙌"}
             </h3>
           </div>
-          {/* <div className="">
+          <div className="">
             {imageUrl.length === 0 ? (
               <Upload setImageUrl={setImageUrl} />
             ) : (
@@ -295,7 +295,7 @@ export const CreateCommunity = () => {
                 </div>
               </Button>
             </div>
-          </div> */}
+          </div>
         </TabsContent>
       </Tabs>
     </Modal>
