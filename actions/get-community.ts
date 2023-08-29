@@ -8,9 +8,13 @@ export async function getCommunity(communityId: string) {
 
     const communityDoc = await getDoc(communityDocRef);
 
-    return JSON.parse(
-      safeJsonStringify({ id: communityId, ...communityDoc.data() })
-    );
+    if (!communityDoc.exists()) {
+      return null
+    } else {
+      return JSON.parse(
+        safeJsonStringify({ id: communityId, ...communityDoc.data() })
+      );
+    }
   } catch (error) {
     console.log(`Get community error`, error);
   }

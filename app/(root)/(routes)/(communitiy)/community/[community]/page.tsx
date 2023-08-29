@@ -6,6 +6,11 @@ const CommunityPage = async ({ params }: { params: { community: string } }) => {
 
   console.log(communityData)
 
+  if (communityData === null) {
+
+    return <div className="py-20 text-2xl">not found</div>
+  }
+
   return <div className="py-20 text-2xl">welcome to {communityData.id}</div>;
 };
 
