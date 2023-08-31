@@ -1,6 +1,6 @@
 import { getCommunity } from "@/actions/get-community";
 import NotFound from "./components/not-found";
-import Container from "@/components/Container";
+import Header from "./components/Header";
 const CommunityPage = async ({ params }: { params: { community: string } }) => {
   const communityData = await getCommunity(params.community);
 
@@ -12,9 +12,9 @@ const CommunityPage = async ({ params }: { params: { community: string } }) => {
 
   return (
     <>
-      <Container>
-        <div className="py-16 md:py-20 text-2xl">welcome to {communityData.id}</div>
-      </Container>
+      <div className="pt-[51px] bg-[#F9FAFB] md:pt-[62px] pb-96">
+        <Header name={params.community} communityData={communityData} />
+      </div>
     </>
   );
 };
