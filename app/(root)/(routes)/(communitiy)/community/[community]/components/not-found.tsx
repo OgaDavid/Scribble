@@ -16,7 +16,7 @@ const NotFound = ({ name }: { name: string }) => {
             Uh oh!{" "}
           </h1>
           <p className="text-brand-gray text-sm md:text-lg text-center max-w-[800px] pt-3">
-            We've searched for {name}, but we just can&apos;t find it. Be the
+            We&apos;ve searched for {name}, but we just can&apos;t find it. Be the
             first to
             <TooltipContainer text={`Click here to create ${name}.`}>
               <span
