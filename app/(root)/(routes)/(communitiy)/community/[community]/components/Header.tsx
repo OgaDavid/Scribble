@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
                 </p>
               </div>
               <div>
-                <Button variant="outline" className="border-brand-purple px-8 md:px-10 font-semibold rounded-full">
+                <Button variant="outline" className="border-black px-8 md:px-10 font-semibold rounded-full">
                   Joined
                 </Button>
               </div>
